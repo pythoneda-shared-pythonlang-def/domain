@@ -1,0 +1,42 @@
+digraph "file:///home/chous/github/pythoneda-def/pythoneda-shared-pythoneda-def/domain" {
+  rankdir=LR;
+  compound=true;
+  label="file:///home/chous/github/pythoneda-def/pythoneda-shared-pythoneda-def/domain";
+
+  // root node
+  root [label="inputs", shape="circle", fillcolor="#F9F7F3", color="black", fontcolor="black", fixedsize="false"];
+
+  // direct inputs with no duplicates
+  node [shape="egg", style="filled", fontcolor="black", color="#B5E2FA", fillcolor="#B5E2FA"];
+  flakeUtils [label="flake-utils\nv1.0.0"]; 
+  nixos [label="nixos\nnixos-23.05"]; 
+  pythonedaSharedPythonedaBanner [label="pythoneda-shared-pythoneda-banner\n0.0.27"]; 
+
+  // direct inputs with duplicates with the same version
+  node [shape="egg", style="filled", fontcolor="white", color="#0FA3B1", fillcolor="#0FA3B1"];
+
+
+  // direct inputs with duplicates with different versions
+  node [shape="egg", style="filled", fontcolor="white", color="#89023E", fillcolor="#89023E"];
+
+
+  // indirect inputs with no duplicates
+  node [shape="rectangle", style="filled", fontcolor="black", color="#EDDEA4", fillcolor="#EDDEA4"];
+
+
+  // indirect inputs with duplicates with the same version
+  node [shape="rectangle", style="filled", fontcolor="black", color="#F7A072", fillcolor="#F7A072"];
+
+
+  // indirect inputs with duplicates with different versions
+  node [shape="rectangle", style="filled", fontcolor="black", color="#C08497", fillcolor="#C08497"];
+
+
+  root -> flakeUtils [color="#656D4A"]; 
+  root -> nixos [color="#656D4A"]; 
+  root -> pythonedaSharedPythonedaBanner [color="#656D4A"]; 
+
+  pythonedaSharedPythonedaBanner -> flakeUtils [color="#A4AC86"]; 
+  pythonedaSharedPythonedaBanner -> nixos [color="#A4AC86"]; 
+
+}
