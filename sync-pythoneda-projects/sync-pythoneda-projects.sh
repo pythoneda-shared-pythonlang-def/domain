@@ -158,8 +158,7 @@ function main() {
       logInfo "${_project}";
     done
     IFS=','
-    echo "${_updatedProjects[*]}"
-    echo "${_updatedProjects[*]}" | jq '.'
+    echo "[ ${_updatedProjects[*]} ]"
     IFS="${_origIFS}";
   fi
 }
