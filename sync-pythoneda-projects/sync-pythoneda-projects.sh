@@ -86,6 +86,8 @@ function main() {
   local _repo;
   local -i _rescode;
   local _output;
+  local -i _index=0;
+  local -i _totalProjects=${#_projects[@]};
   local _origIFS="${IFS}";
   IFS="${DWIFS}";
   for _project in "${_projects[@]}"; do
@@ -101,21 +103,29 @@ function main() {
       exitWithErrorCode CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "${_project}";
     fi
     pushd ${ROOT_FOLDER}/${_def_owner}/${_repo} >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${ROOT_FOLDER}/${_def_owner}/${_repo}"
-    logInfo "Processing ${_def_owner}/${_repo}";
-    _output="$("${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1)";
+    _index=$((_index + 1));
+    logInfo "[${_index}/${_totalProjects}] Analyzing ${_def_owner}/${_repo}";
+    createTempFile;
+    local _updateLatestInputsNixFlakeOutput="${RESULT}";
+    "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1 | tee "${_updateLatestInputsNixFlakeOutput}";
     _rescode=$?;
     if isTrue ${_rescode}; then
-      _output="$("${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1)";
+      logInfo "Processing ${_def_owner}/${_repo}";
+      createTempFile;
+      local _releaseTagOutput="${RESULT}";
+      "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1 | tee "${_releaseTagOutput}";
       _rescode=$?;
       if isTrue ${_rescode}; then
         _updatedProjects+=("$(command echo "${_output}" | command tail -n 1)");
       else
+        _output="$(<"${_releaseTagOutput}")";
         if ! isEmpty "${_output}"; then
           logDebug "${_output}";
         fi
         _failedProjects+=("${_def_owner}/${_repo}");
       fi
     else
+      _output="$(<"${_updateLatestInputsNixFlakeOutput}")";
       if ! isEmpty "${_output}"; then
         logDebug "${_output}";
       fi

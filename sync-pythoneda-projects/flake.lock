@@ -149,17 +149,17 @@
       },
       "locked": {
         "dir": "release-tag",
-        "lastModified": 1702664759,
-        "narHash": "sha256-deyV5ttbLd/vfVxH+QuHMXK2Wa6yo3agq8r0nqfR9Io=",
+        "lastModified": 1702668391,
+        "narHash": "sha256-9ypW3mRjpzfMSsih0GAg/LUC4l9JTrbz3udO44NRYQ4=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "c978af30d2211e73a9b7754d5aadee0ba2be8564",
+        "rev": "da09b037e68c9052bb2c2a59163a2f9add53c535",
         "type": "github"
       },
       "original": {
         "dir": "release-tag",
         "owner": "rydnr",
-        "ref": "0.0.9",
+        "ref": "0.0.11",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -189,17 +189,17 @@
       },
       "locked": {
         "dir": "update-latest-inputs-nix-flake",
-        "lastModified": 1702664759,
-        "narHash": "sha256-deyV5ttbLd/vfVxH+QuHMXK2Wa6yo3agq8r0nqfR9Io=",
+        "lastModified": 1702668391,
+        "narHash": "sha256-9ypW3mRjpzfMSsih0GAg/LUC4l9JTrbz3udO44NRYQ4=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "c978af30d2211e73a9b7754d5aadee0ba2be8564",
+        "rev": "da09b037e68c9052bb2c2a59163a2f9add53c535",
         "type": "github"
       },
       "original": {
         "dir": "update-latest-inputs-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.9",
+        "ref": "0.0.11",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }

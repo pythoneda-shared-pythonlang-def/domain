@@ -37,13 +37,13 @@
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.10?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.11?dir=update-latest-inputs-nix-flake";
     };
     release-tag = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.10?dir=release-tag";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.11?dir=release-tag";
     };
   };
   outputs = inputs:
@@ -59,7 +59,7 @@
         org = "rydnr";
         repo = "nix-dry-wit-scripts";
         pname = "${org}-${repo}";
-        version = "0.0.14";
+        version = "0.0.15";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
