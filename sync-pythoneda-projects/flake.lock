@@ -11,17 +11,17 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1702569931,
-        "narHash": "sha256-kVvvQkv01VkWK8l3AWLhrUL+ruklJd7TatNi3emxl58=",
+        "lastModified": 1702664633,
+        "narHash": "sha256-fXIONtBcIJUQv6ixdvfTconz3agBTBCSQQXKJ/aoyN8=",
         "owner": "rydnr",
         "repo": "dry-wit",
-        "rev": "97478a825db7224a2677ab5b23ac2174e07dd1da",
+        "rev": "ecbecf99a0b021a51de08af98226b6ef193d4539",
         "type": "github"
       },
       "original": {
         "dir": "nix",
         "owner": "rydnr",
-        "ref": "3.0.10",
+        "ref": "3.0.13",
         "repo": "dry-wit",
         "type": "github"
       }
@@ -149,17 +149,17 @@
       },
       "locked": {
         "dir": "release-tag",
-        "lastModified": 1702570771,
-        "narHash": "sha256-JS+5korP4U+9NZYBnLgc9GvTnVx4I+0R9gJq6NyliRs=",
+        "lastModified": 1702664759,
+        "narHash": "sha256-deyV5ttbLd/vfVxH+QuHMXK2Wa6yo3agq8r0nqfR9Io=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "4f45a66ff51f2338931d35780562e5299aa9c05f",
+        "rev": "c978af30d2211e73a9b7754d5aadee0ba2be8564",
         "type": "github"
       },
       "original": {
         "dir": "release-tag",
         "owner": "rydnr",
-        "ref": "0.0.7",
+        "ref": "0.0.9",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -189,17 +189,17 @@
       },
       "locked": {
         "dir": "update-latest-inputs-nix-flake",
-        "lastModified": 1702570771,
-        "narHash": "sha256-JS+5korP4U+9NZYBnLgc9GvTnVx4I+0R9gJq6NyliRs=",
+        "lastModified": 1702664759,
+        "narHash": "sha256-deyV5ttbLd/vfVxH+QuHMXK2Wa6yo3agq8r0nqfR9Io=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "4f45a66ff51f2338931d35780562e5299aa9c05f",
+        "rev": "c978af30d2211e73a9b7754d5aadee0ba2be8564",
         "type": "github"
       },
       "original": {
         "dir": "update-latest-inputs-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.7",
+        "ref": "0.0.9",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }

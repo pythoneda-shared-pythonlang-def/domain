@@ -101,13 +101,10 @@ function main() {
       exitWithErrorCode CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "${_project}";
     fi
     pushd ${ROOT_FOLDER}/${_def_owner}/${_repo} >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${ROOT_FOLDER}/${_def_owner}/${_repo}"
-    logInfo -n "Checking if ${_def_owner}/${_repo} needs to be updated";
+    logInfo "Processing ${_def_owner}/${_repo}";
     _output="$("${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1)";
     _rescode=$?;
-    echo
-    echo "${_output}"
     if isTrue ${_rescode}; then
-      logInfoResult SUCCESS "true";
       _output="$("${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1)";
       _rescode=$?;
       if isTrue ${_rescode}; then
@@ -119,7 +116,9 @@ function main() {
         _failedProjects+=("${_def_owner}/${_repo}");
       fi
     else
-      logInfoResult SUCCESS "false";
+      if ! isEmpty "${_output}"; then
+        logDebug "${_output}";
+      fi
       _upToDateProjects+=("${_def_owner}/${_repo}");
     fi
     popd 2>&1 > /dev/null || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${_project}"
