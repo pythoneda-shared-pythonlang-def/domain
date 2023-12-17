@@ -63,37 +63,44 @@ function main() {
     "pythoneda-shared-pythoneda-artifact/domain-application" \
     );
 
+  # from sync-pythoneda-project.sh -vv -h
+  local -i _skippedProject=24;
+
   resolveVerbosity;
   local _commonArgs=(${RESULT});
   if ! isEmpty "${GITHUB_TOKEN}"; then
     _commonArgs+=("-t" "${GITHUB_TOKEN}");
   fi
-  local _releaseTagArgs=("${_commonArgs[@]}" "-R" "${RELEASE_NAME}");
+  _commonArgs+=("${_commonArgs[@]}" "-R" "${RELEASE_NAME}");
   if ! isEmpty "${COMMIT_MESSAGE}"; then
-    _releaseTagArgs+=("-c" "${COMMIT_MESSAGE}");
+    _commonArgs+=("-c" "${COMMIT_MESSAGE}");
   fi
   if ! isEmpty "${TAG_MESSAGE}"; then
-    _releaseTagArgs+=("-m" "${TAG_MESSAGE}");
+    _commonArgs+=("-m" "${TAG_MESSAGE}");
   fi
   if ! isEmpty "${GPG_KEY_ID}"; then
-    _releaseTagArgs+=("-g" "${GPG_KEY_ID}");
+    _commonArgs+=("-g" "${GPG_KEY_ID}");
   fi
   local _updatedProjects=();
   local _upToDateProjects=();
   local _failedProjects=();
   local _project;
-  local _def_owner;
+  local _defOwner;
   local _repo;
   local -i _rescode;
   local _output;
   local -i _index=0;
   local -i _totalProjects=${#_projects[@]};
+
+  createTempFile;
+  local _syncPythonedaProjectOutput="${RESULT}";
+
   local _origIFS="${IFS}";
   IFS="${DWIFS}";
   for _project in "${_projects[@]}"; do
     IFS="${_origIFS}";
     if extract_owner "${_project}"; then
-      _def_owner="${RESULT}-def";
+      _defOwner="${RESULT}-def";
     else
       exitWithErrorCode CANNOT_EXTRACT_THE_OWNER_OF_PROJECT "${_project}";
     fi
@@ -102,55 +109,23 @@ function main() {
     else
       exitWithErrorCode CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "${_project}";
     fi
-    pushd ${ROOT_FOLDER}/${_def_owner}/${_repo} >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${ROOT_FOLDER}/${_def_owner}/${_repo}"
+    logInfo "[${_index}/${_totalProjects}] Processing ${_defOwner}/${_repo}";
     _index=$((_index + 1));
-    logInfo "[${_index}/${_totalProjects}] Processing ${_def_owner}/${_repo}";
-
-    # Updating the reference to the wrapped repository if needed
-    createTempFile;
-    local _updateSha256NixFlakeOutput="${RESULT}";
-    "${UPDATE_SHA256_NIX_FLAKE}" "${_commonArgs[@]}" | tee "${_updateSha256NixFlakeOutput}";
-    _rescode=$?;
-    if isFalse ${_rescode}; then
-      logInfo "Error updating the sha256 of ${_def_owner}/${_repo}";
-      _output="$(<"${_updateSha256NixFlakeOutput}")";
-      if ! isEmpty "${_output}"; then
-        logDebug "${_output}";
-      fi
-      _failedProjects+=("${_def_owner}/${_repo}");
-      continue;
-    fi
-
-    # updating inputs
-    createTempFile;
-    local _updateLatestInputsNixFlakeOutput="${RESULT}";
-    "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1 | tee "${_updateLatestInputsNixFlakeOutput}";
-    _rescode=$?;
-    if isFalse ${_rescode}; then
-      _output="$(<"${_updateLatestInputsNixFlakeOutput}")";
-      if ! isEmpty "${_output}"; then
-        logDebug "${_output}";
-      fi
-      _upToDateProjects+=("${_def_owner}/${_repo}");
-      continue;
-    fi
-
-    # releasing tag
-    logInfo "Releasing a new version of ${_def_owner}/${_repo}";
-    createTempFile;
-    local _releaseTagOutput="${RESULT}";
-    "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1 | tee "${_releaseTagOutput}";
+    "${SYNC_PYTHONEDA_PROJECT}" "${_commonArgs[@]}" -p "${ROOT_FOLDER}/${_defOwner}/${_repo}" | tee "${_syncPythonedaProjectOutput}";
     _rescode=$?;
     if isTrue ${_rescode}; then
-      _updatedProjects+=("$(command echo "${_output}" | command tail -n 1)");
+      _updatedProjects+=("${_defOwner}/${_repo}");
+    elif areEqual ${_rescode} ${_skippedProject}; then
+      _upToDateProjects+=("${_defOwner}/${_repo}");
     else
-      _output="$(<"${_releaseTagOutput}")";
+      logInfo "Error processing ${_defOwner}/${_repo}";
+      _output="$(<"${_syncPythonedaProjectOutput}")";
       if ! isEmpty "${_output}"; then
         logDebug "${_output}";
       fi
-      _failedProjects+=("${_def_owner}/${_repo}");
+      _failedProjects+=("${_defOwner}/${_repo}");
+      continue;
     fi
-    popd 2>&1 > /dev/null || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${_project}"
     IFS="${_origIFS}";
   done
   IFS="${_origIFS}";
@@ -249,10 +224,14 @@ setScriptDescription "Synchronizes PythonEDA projects";
 setScriptLicenseSummary "Distributed under the terms of the GNU General Public License v3";
 setScriptCopyright "Copyleft 2023-today Automated Computing Machinery S.L.";
 
+DW.getScriptName;
+SCRIPT_NAME="${RESULT}";
 addCommandLineFlag "rootFolder" "r" "The root folder of PythonEDA definition projects" MANDATORY EXPECTS_ARGUMENT;
 addCommandLineFlag "githubToken" "t" "The github token" OPTIONAL EXPECTS_ARGUMENT;
 addCommandLineFlag "releaseName" "R" "The release name" MANDATORY EXPECTS_ARGUMENT;
 addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUMENT;
+addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARGUMENT "Commit created with ${SCRIPT_NAME}";
+addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}";
 
 checkReq jq;
 checkReq sed;
@@ -266,17 +245,9 @@ addError CANNOT_UPDATE_LATEST_INPUTS "Cannot update inputs to its latest version
 addError CANNOT_RELEASE_TAG "Cannot create a new release tag in";
 
 ## deps
-export UPDATE_LATEST_INPUTS_NIX_FLAKE="__UPDATE_LATEST_INPUTS_NIX_FLAKE__";
-if areEqual "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "__UPDATE_LATEST_INPUTS_NIX_FLAKE__"; then
-  export UPDATE_LATEST_INPUTS_NIX_FLAKE="update-latest-inputs-nix-flake.sh";
-fi
-export RELEASE_TAG="__RELEASE_TAG__";
-if areEqual "${RELEASE_TAG}" "__RELEASE_TAG__"; then
-  export RELEASE_TAG="release-tag.sh";
-fi
-export UPDATE_SHA256_NIX_FLAKE="__UPDATE_SHA256_NIX_FLAKE__";
-if areEqual "${UPDATE_SHA256_NIX_FLAKE}" "__UPDATE_SHA256_NIX_FLAKE__"; then
-  export UPDATE_SHA256_NIX_FLAKE="update-sha256-nix-flake.sh";
+export SYNC_PYTHONEDA_PROJECT="__SYNC_PYTHONEDA_PROJECT__";
+if areEqual "${SYNC_PYTHONEDA_PROJECT}" "__SYNC_PYTHONEDA_PROJECT__"; then
+  export SYNC_PYTHONEDA_PROJECT="sync-pythoneda-project.sh";
 fi
 
 function dw_check_rootFolder_cli_flag() {

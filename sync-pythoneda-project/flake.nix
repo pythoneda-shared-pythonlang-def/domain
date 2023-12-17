@@ -1,6 +1,6 @@
-# sync-pythoneda-projects/flake.nix
+# sync-pythoneda-project/flake.nix
 #
-# This file packages sync-pythoneda-projects script as a Nix flake.
+# This file packages sync-pythoneda-project script as a Nix flake.
 #
 # Copyright (C) 2008-today rydnr's nix-dry-wit-scripts
 #
@@ -18,7 +18,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
   description =
-    "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
+    "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixos.url = "github:NixOS/nixpkgs/23.11";
@@ -66,15 +66,15 @@
         org = "rydnr";
         repo = "nix-dry-wit-scripts";
         pname = "${org}-${repo}";
-        version = "0.0.16";
+        version = "0.0.17";
         pkgs = import nixos { inherit system; };
         description =
-          "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
+          "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
         shared = import "${pythoneda-shared-pythoneda-banner}/nix/shared.nix";
-        sync-pythoneda-projects-for = { dry-wit, release-tag
+        sync-pythoneda-project-for = { dry-wit, release-tag
           , update-latest-inputs-nix-flake, update-sha256-nix-flake }:
           pkgs.stdenv.mkDerivation rec {
             inherit pname version;
@@ -89,10 +89,10 @@
 
             installPhase = ''
               mkdir -p $out/bin
-              cp sync-pythoneda-projects/sync-pythoneda-projects.sh $out/bin
-              chmod +x $out/bin/sync-pythoneda-projects.sh
-              cp sync-pythoneda-projects/README.md LICENSE $out/
-              substituteInPlace $out/bin/sync-pythoneda-projects.sh \
+              cp sync-pythoneda-project/sync-pythoneda-project.sh $out/bin
+              chmod +x $out/bin/sync-pythoneda-project.sh
+              cp sync-pythoneda-project/README.md LICENSE $out/
+              substituteInPlace $out/bin/sync-pythoneda-project.sh \
                 --replace "#!/usr/bin/env dry-wit" "#!/usr/bin/env ${dry-wit}/dry-wit" \
                 --replace "__RELEASE_TAG__" "${release-tag}/bin/release-tag.sh" \
                 --replace "__UPDATE_LATEST_INPUTS_NIX_FLAKE__" "${update-latest-inputs-nix-flake}/bin/update-latest-inputs-nix-flake.sh" \
@@ -105,27 +105,27 @@
           };
       in rec {
         apps = rec {
-          default = sync-pythoneda-projects-default;
-          sync-pythoneda-projects-default = sync-pythoneda-projects-bash5;
-          sync-pythoneda-projects-bash5 = shared.app-for {
-            package = packages.sync-pythoneda-projects-bash5;
-            entrypoint = "sync-pythoneda-projects";
+          default = sync-pythoneda-project-default;
+          sync-pythoneda-project-default = sync-pythoneda-project-bash5;
+          sync-pythoneda-project-bash5 = shared.app-for {
+            package = packages.sync-pythoneda-project-bash5;
+            entrypoint = "sync-pythoneda-project";
           };
-          sync-pythoneda-projects-zsh = shared.app-for {
-            package = packages.sync-pythoneda-projects-zsh;
-            entrypoint = "sync-pythoneda-projects";
+          sync-pythoneda-project-zsh = shared.app-for {
+            package = packages.sync-pythoneda-project-zsh;
+            entrypoint = "sync-pythoneda-project";
           };
-          sync-pythoneda-projects-fish = shared.app-for {
-            package = packages.sync-pythoneda-projects-fish;
-            entrypoint = "sync-pythoneda-projects";
+          sync-pythoneda-project-fish = shared.app-for {
+            package = packages.sync-pythoneda-project-fish;
+            entrypoint = "sync-pythoneda-project";
           };
         };
         defaultApp = apps.default;
         defaultPackage = packages.default;
         packages = rec {
-          default = sync-pythoneda-projects-default;
-          sync-pythoneda-projects-default = sync-pythoneda-projects-bash5;
-          sync-pythoneda-projects-bash5 = sync-pythoneda-projects-for {
+          default = sync-pythoneda-project-default;
+          sync-pythoneda-project-default = sync-pythoneda-project-bash5;
+          sync-pythoneda-project-bash5 = sync-pythoneda-project-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-bash5;
             release-tag = release-tag.packages.${system}.release-tag-bash5;
             update-latest-inputs-nix-flake =
@@ -133,7 +133,7 @@
             update-sha256-nix-flake =
               update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-sync;
           };
-          bash5-pythoneda-projects-zsh = sync-pythoneda-projects-for {
+          bash5-pythoneda-projects-zsh = sync-pythoneda-project-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;
             release-tag = release-tag.packages.${system}.release-tag-zsh;
             update-latest-inputs-nix-flake =
@@ -141,7 +141,7 @@
             update-sha256-nix-flake =
               update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-zsh;
           };
-          sync-pythoneda-projects-fish = sync-pythoneda-projects-for {
+          sync-pythoneda-project-fish = sync-pythoneda-project-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-fish;
             release-tag = release-tag.packages.${system}.release-tag-fish;
             update-latest-inputs-nix-flake =
