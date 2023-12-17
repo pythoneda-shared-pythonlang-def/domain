@@ -109,8 +109,8 @@ function main() {
     else
       exitWithErrorCode CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "${_project}";
     fi
-    logInfo "[${_index}/${_totalProjects}] Processing ${_defOwner}/${_repo}";
     _index=$((_index + 1));
+    logInfo "[${_index}/${_totalProjects}] Processing ${_defOwner}/${_repo}";
     "${SYNC_PYTHONEDA_PROJECT}" "${_commonArgs[@]}" -p "${ROOT_FOLDER}/${_defOwner}/${_repo}" | tee "${_syncPythonedaProjectOutput}";
     _rescode=$?;
     if isTrue ${_rescode}; then

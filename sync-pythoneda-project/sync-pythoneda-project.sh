@@ -78,7 +78,7 @@ function main() {
     if ! isEmpty "${_output}"; then
       logDebug "${_output}";
     fi
-    if arrayDoesNotContain ${_rescode} "${_noChangesExitCodes[@]}"; then
+    if arrayContains ${_rescode} "${_noChangesExitCodes[@]}"; then
       exitWithErrorCode SKIPPED "${_projectFolder}";
     fi
   fi

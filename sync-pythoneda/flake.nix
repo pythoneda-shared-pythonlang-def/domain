@@ -46,7 +46,7 @@
         org = "rydnr";
         repo = "nix-dry-wit-scripts";
         pname = "${org}-${repo}";
-        version = "0.0.17";
+        version = "0.0.18";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
