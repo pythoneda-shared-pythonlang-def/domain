@@ -25,25 +25,32 @@
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/dry-wit/3.0.13?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.14?dir=nix";
     };
     pythoneda-shared-pythoneda-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       url = "github:pythoneda-shared-pythoneda-def/banner/0.0.37";
     };
+    release-tag = {
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixos.follows = "nixos";
+      inputs.dry-wit.follows = "dry-wit";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.15?dir=release-tag";
+    };
     update-latest-inputs-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.11?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.15?dir=update-latest-inputs-nix-flake";
     };
-    release-tag = {
+    update-sha256-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.11?dir=release-tag";
+      url =
+        "github:rydnr/nix-dry-wit-scripts/0.0.15?dir=update-sha256-nix-flake";
     };
   };
   outputs = inputs:
@@ -67,13 +74,17 @@
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
         shared = import "${pythoneda-shared-pythoneda-banner}/nix/shared.nix";
-        sync-pythoneda-projects-for =
-          { dry-wit, release-tag, update-latest-inputs-nix-flake }:
+        sync-pythoneda-projects-for = { dry-wit, release-tag
+          , update-latest-inputs-nix-flake, update-sha256-nix-flake }:
           pkgs.stdenv.mkDerivation rec {
             inherit pname version;
             src = ../.;
-            propagatedBuildInputs =
-              [ dry-wit release-tag update-latest-inputs-nix-flake ];
+            propagatedBuildInputs = [
+              dry-wit
+              release-tag
+              update-latest-inputs-nix-flake
+              update-sha256-nix-flake
+            ];
             phases = [ "unpackPhase" "installPhase" ];
 
             installPhase = ''
@@ -84,7 +95,8 @@
               substituteInPlace $out/bin/sync-pythoneda-projects.sh \
                 --replace "#!/usr/bin/env dry-wit" "#!/usr/bin/env ${dry-wit}/dry-wit" \
                 --replace "__RELEASE_TAG__" "${release-tag}/bin/release-tag.sh" \
-                --replace "__UPDATE_LATEST_INPUTS_NIX_FLAKE__" "${update-latest-inputs-nix-flake}/bin/update-latest-inputs-nix-flake.sh";
+                --replace "__UPDATE_LATEST_INPUTS_NIX_FLAKE__" "${update-latest-inputs-nix-flake}/bin/update-latest-inputs-nix-flake.sh" \
+                --replace "__UPDATE_SHA256_NIX_FLAKE__" "${update-sha256-nix-flake}/bin/update-sha256-nix-flake.sh";
             '';
 
             meta = with pkgs.lib; {
@@ -118,18 +130,24 @@
             release-tag = release-tag.packages.${system}.release-tag-bash5;
             update-latest-inputs-nix-flake =
               update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-bash5;
+            update-sha256-nix-flake =
+              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-sync;
           };
-          sync-pythoneda-projects-zsh = sync-pythoneda-projects-for {
+          bash5-pythoneda-projects-zsh = sync-pythoneda-projects-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;
             release-tag = release-tag.packages.${system}.release-tag-zsh;
             update-latest-inputs-nix-flake =
               update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-zsh;
+            update-sha256-nix-flake =
+              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-zsh;
           };
           sync-pythoneda-projects-fish = sync-pythoneda-projects-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-fish;
             release-tag = release-tag.packages.${system}.release-tag-fish;
             update-latest-inputs-nix-flake =
               update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-fish;
+            update-sha256-nix-flake =
+              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-fish;
           };
         };
       });

@@ -104,32 +104,51 @@ function main() {
     fi
     pushd ${ROOT_FOLDER}/${_def_owner}/${_repo} >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${ROOT_FOLDER}/${_def_owner}/${_repo}"
     _index=$((_index + 1));
-    logInfo "[${_index}/${_totalProjects}] Analyzing ${_def_owner}/${_repo}";
+    logInfo "[${_index}/${_totalProjects}] Processing ${_def_owner}/${_repo}";
+
+    # Updating the reference to the wrapped repository if needed
+    createTempFile;
+    local _updateSha256NixFlakeOutput="${RESULT}";
+    "${UPDATE_SHA256_NIX_FLAKE}" "${_commonArgs[@]}" | tee "${_updateSha256NixFlakeOutput}";
+    _rescode=$?;
+    if isFalse ${_rescode}; then
+      logInfo "Error updating the sha256 of ${_def_owner}/${_repo}";
+      _output="$(<"${_updateSha256NixFlakeOutput}")";
+      if ! isEmpty "${_output}"; then
+        logDebug "${_output}";
+      fi
+      _failedProjects+=("${_def_owner}/${_repo}");
+      continue;
+    fi
+
+    # updating inputs
     createTempFile;
     local _updateLatestInputsNixFlakeOutput="${RESULT}";
     "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1 | tee "${_updateLatestInputsNixFlakeOutput}";
     _rescode=$?;
-    if isTrue ${_rescode}; then
-      logInfo "Processing ${_def_owner}/${_repo}";
-      createTempFile;
-      local _releaseTagOutput="${RESULT}";
-      "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1 | tee "${_releaseTagOutput}";
-      _rescode=$?;
-      if isTrue ${_rescode}; then
-        _updatedProjects+=("$(command echo "${_output}" | command tail -n 1)");
-      else
-        _output="$(<"${_releaseTagOutput}")";
-        if ! isEmpty "${_output}"; then
-          logDebug "${_output}";
-        fi
-        _failedProjects+=("${_def_owner}/${_repo}");
-      fi
-    else
+    if isFalse ${_rescode}; then
       _output="$(<"${_updateLatestInputsNixFlakeOutput}")";
       if ! isEmpty "${_output}"; then
         logDebug "${_output}";
       fi
       _upToDateProjects+=("${_def_owner}/${_repo}");
+      continue;
+    fi
+
+    # releasing tag
+    logInfo "Releasing a new version of ${_def_owner}/${_repo}";
+    createTempFile;
+    local _releaseTagOutput="${RESULT}";
+    "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${ROOT_FOLDER}/${_def_owner}/${_repo}" 2>&1 | tee "${_releaseTagOutput}";
+    _rescode=$?;
+    if isTrue ${_rescode}; then
+      _updatedProjects+=("$(command echo "${_output}" | command tail -n 1)");
+    else
+      _output="$(<"${_releaseTagOutput}")";
+      if ! isEmpty "${_output}"; then
+        logDebug "${_output}";
+      fi
+      _failedProjects+=("${_def_owner}/${_repo}");
     fi
     popd 2>&1 > /dev/null || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${_project}"
     IFS="${_origIFS}";
@@ -254,6 +273,10 @@ fi
 export RELEASE_TAG="__RELEASE_TAG__";
 if areEqual "${RELEASE_TAG}" "__RELEASE_TAG__"; then
   export RELEASE_TAG="release-tag.sh";
+fi
+export UPDATE_SHA256_NIX_FLAKE="__UPDATE_SHA256_NIX_FLAKE__";
+if areEqual "${UPDATE_SHA256_NIX_FLAKE}" "__UPDATE_SHA256_NIX_FLAKE__"; then
+  export UPDATE_SHA256_NIX_FLAKE="update-sha256-nix-flake.sh";
 fi
 
 function dw_check_rootFolder_cli_flag() {
