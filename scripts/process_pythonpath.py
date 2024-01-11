@@ -80,7 +80,7 @@ class ProcessPythonpath:
         exclude_dirs = {".git", "__pycache__"}
         for dirpath, dirnames, filenames in os.walk(rootFolder):
             dirnames[:] = [d for d in dirnames if d not in exclude_dirs]
-            if "__init__.py" in filenames:
+            if "__init__.py" in filenames or ".pythoneda-test" in filenames:
                 aux = os.path.relpath(dirpath, start=rootFolder)
                 parts = aux.split("/", 2)
                 if len(parts) > 2:

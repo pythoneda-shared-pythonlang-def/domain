@@ -61,6 +61,9 @@ function main() {
     "pythoneda-shared-pythoneda-artifact/domain" \
     "pythoneda-shared-pythoneda-artifact/domain-infrastructure" \
     "pythoneda-shared-pythoneda-artifact/domain-application" \
+    "pythoneda-tools-artifact/git-hook" \
+    "pythoneda-sandbox/flow-sample" \
+    "pythoneda-sandbox/flow-sample-tests"
     );
 
   # from sync-pythoneda-project.sh -vv -h
