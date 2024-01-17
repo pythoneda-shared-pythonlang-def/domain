@@ -24,7 +24,7 @@
     pythoneda-shared-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-def/banner/0.0.43";
+      url = "github:pythoneda-shared-def/banner/0.0.46";
     };
   };
   outputs = inputs:
@@ -39,8 +39,8 @@
       let
         org = "pythoneda-shared";
         repo = "domain";
-        version = "0.0.19";
-        sha256 = "1n4hb1smli9cz8wjm2klk89l5hg4q8s29m8849lfa5qf25cnq6kd";
+        version = "0.0.21";
+        sha256 = "02xlfhl3sv3ypvhwgwf307prccrhhg0gydsl3wbq4cvbin3bb5rj";
         pname = "${org}-${repo}";
         pkgs = import nixos { inherit system; };
         description = "Support for event-driven architectures in Python";
@@ -58,7 +58,7 @@
           let
             pnameWithUnderscores =
               builtins.replaceStrings [ "-" ] [ "_" ] pname;
-            pythonpackage = "pythoneda";
+            pythonpackage = "pythoneda.shared";
             pythonVersionParts = builtins.splitVersion python.version;
             pythonMajorVersion = builtins.head pythonVersionParts;
             pythonMajorMinorVersion =
@@ -120,8 +120,7 @@
         defaultPackage = packages.default;
         devShells = rec {
           default = pythoneda-shared-domain-default;
-          pythoneda-shared-domain-default =
-            pythoneda-shared-domain-python311;
+          pythoneda-shared-domain-default = pythoneda-shared-domain-python311;
           pythoneda-shared-domain-python38 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-banner.packages.${system}.pythoneda-shared-banner-python38
@@ -129,8 +128,7 @@
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
             package = packages.pythoneda-shared-domain-python38;
-            pythoneda-shared-domain =
-              packages.pythoneda-shared-domain-python38;
+            pythoneda-shared-domain = packages.pythoneda-shared-domain-python38;
             pythoneda-shared-banner =
               pythoneda-shared-banner.packages.${system}.pythoneda-shared-banner-python38;
             python = pkgs.python38;
@@ -143,8 +141,7 @@
             extra-namespaces = "";
             nixpkgs-release = nixpkgsRelease;
             package = packages.pythoneda-shared-domain-python39;
-            pythoneda-shared-domain =
-              packages.pythoneda-shared-domain-python39;
+            pythoneda-shared-domain = packages.pythoneda-shared-domain-python39;
             pythoneda-shared-banner =
               pythoneda-shared-banner.packages.${system}.pythoneda-shared-banner-python39;
             python = pkgs.python39;
@@ -181,8 +178,7 @@
         };
         packages = rec {
           default = pythoneda-shared-domain-default;
-          pythoneda-shared-domain-default =
-            pythoneda-shared-domain-python311;
+          pythoneda-shared-domain-default = pythoneda-shared-domain-python311;
           pythoneda-shared-domain-python38 =
             pythoneda-shared-domain-for { python = pkgs.python38; };
           pythoneda-shared-domain-python39 =
