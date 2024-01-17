@@ -32,7 +32,7 @@
         "type": "github"
       }
     },
-    "pythoneda-shared-pythoneda-banner": {
+    "pythoneda-shared-banner": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -44,13 +44,13 @@
       "locked": {
         "lastModified": 1705000493,
         "narHash": "sha256-95OtHjJreiv5Aamc3CYDbd3S8dNFvjVgoYyUx4UO5OU=",
-        "owner": "pythoneda-shared-pythoneda-def",
+        "owner": "pythoneda-shared-def",
         "repo": "banner",
         "rev": "87e640d31c9687baf5c47f42573b1472839ad3b3",
         "type": "github"
       },
       "original": {
-        "owner": "pythoneda-shared-pythoneda-def",
+        "owner": "pythoneda-shared-def",
         "ref": "0.0.41",
         "repo": "banner",
         "type": "github"
@@ -60,7 +60,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixos": "nixos",
-        "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner"
+        "pythoneda-shared-banner": "pythoneda-shared-banner"
       }
     }
   },
