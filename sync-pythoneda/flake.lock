@@ -58,7 +58,7 @@
         "type": "github"
       }
     },
-    "pythoneda-shared-pythoneda-banner": {
+    "pythoneda-shared-banner": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -68,125 +68,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1702405836,
-        "narHash": "sha256-CtOJHg95ZVeUGIFa4dWONdyb1HZoNQ+X/TR307NbnQI=",
-        "owner": "pythoneda-shared-pythoneda-def",
+        "lastModified": 1702800428,
+        "narHash": "sha256-EYd71SFUq2o49QQtqi8ZRgENLstEPofcHhBqW9NLUMc=",
+        "owner": "pythoneda-shared-def",
         "repo": "banner",
-        "rev": "d391e0941b4f45dd96810239a703ab593b02e818",
+        "rev": "2affd8065119120a9b25f5ddb8eb0614595273bf",
         "type": "github"
       },
       "original": {
-        "owner": "pythoneda-shared-pythoneda-def",
-        "ref": "0.0.37",
+        "owner": "pythoneda-shared-def",
+        "ref": "0.0.39",
         "repo": "banner",
-        "type": "github"
-      }
-    },
-    "pythoneda-shared-pythoneda-banner_2": {
-      "inputs": {
-        "flake-utils": [
-          "release-tag",
-          "flake-utils"
-        ],
-        "nixos": [
-          "release-tag",
-          "nixos"
-        ]
-      },
-      "locked": {
-        "lastModified": 1702405836,
-        "narHash": "sha256-CtOJHg95ZVeUGIFa4dWONdyb1HZoNQ+X/TR307NbnQI=",
-        "owner": "pythoneda-shared-pythoneda-def",
-        "repo": "banner",
-        "rev": "d391e0941b4f45dd96810239a703ab593b02e818",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pythoneda-shared-pythoneda-def",
-        "ref": "0.0.37",
-        "repo": "banner",
-        "type": "github"
-      }
-    },
-    "pythoneda-shared-pythoneda-banner_3": {
-      "inputs": {
-        "flake-utils": [
-          "update-latest-inputs-nix-flake",
-          "flake-utils"
-        ],
-        "nixos": [
-          "update-latest-inputs-nix-flake",
-          "nixos"
-        ]
-      },
-      "locked": {
-        "lastModified": 1702405836,
-        "narHash": "sha256-CtOJHg95ZVeUGIFa4dWONdyb1HZoNQ+X/TR307NbnQI=",
-        "owner": "pythoneda-shared-pythoneda-def",
-        "repo": "banner",
-        "rev": "d391e0941b4f45dd96810239a703ab593b02e818",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pythoneda-shared-pythoneda-def",
-        "ref": "0.0.37",
-        "repo": "banner",
-        "type": "github"
-      }
-    },
-    "pythoneda-shared-pythoneda-banner_4": {
-      "inputs": {
-        "flake-utils": [
-          "update-sha256-nix-flake",
-          "flake-utils"
-        ],
-        "nixos": [
-          "update-sha256-nix-flake",
-          "nixos"
-        ]
-      },
-      "locked": {
-        "lastModified": 1702405836,
-        "narHash": "sha256-CtOJHg95ZVeUGIFa4dWONdyb1HZoNQ+X/TR307NbnQI=",
-        "owner": "pythoneda-shared-pythoneda-def",
-        "repo": "banner",
-        "rev": "d391e0941b4f45dd96810239a703ab593b02e818",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pythoneda-shared-pythoneda-def",
-        "ref": "0.0.37",
-        "repo": "banner",
-        "type": "github"
-      }
-    },
-    "release-tag": {
-      "inputs": {
-        "dry-wit": [
-          "dry-wit"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixos": [
-          "nixos"
-        ],
-        "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner_2"
-      },
-      "locked": {
-        "dir": "release-tag",
-        "lastModified": 1702671085,
-        "narHash": "sha256-u2xkQWdAiaq9u8f63HuPgcoSOc+lp6LTF8zIJS36oG4=",
-        "owner": "rydnr",
-        "repo": "nix-dry-wit-scripts",
-        "rev": "c75a66ff3d57226af6ba51157f4e29044411cf3a",
-        "type": "github"
-      },
-      "original": {
-        "dir": "release-tag",
-        "owner": "rydnr",
-        "ref": "0.0.15",
-        "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
     },
@@ -195,70 +87,7 @@
         "dry-wit": "dry-wit",
         "flake-utils": "flake-utils",
         "nixos": "nixos",
-        "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner",
-        "release-tag": "release-tag",
-        "update-latest-inputs-nix-flake": "update-latest-inputs-nix-flake",
-        "update-sha256-nix-flake": "update-sha256-nix-flake"
-      }
-    },
-    "update-latest-inputs-nix-flake": {
-      "inputs": {
-        "dry-wit": [
-          "dry-wit"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixos": [
-          "nixos"
-        ],
-        "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner_3"
-      },
-      "locked": {
-        "dir": "update-latest-inputs-nix-flake",
-        "lastModified": 1702671085,
-        "narHash": "sha256-u2xkQWdAiaq9u8f63HuPgcoSOc+lp6LTF8zIJS36oG4=",
-        "owner": "rydnr",
-        "repo": "nix-dry-wit-scripts",
-        "rev": "c75a66ff3d57226af6ba51157f4e29044411cf3a",
-        "type": "github"
-      },
-      "original": {
-        "dir": "update-latest-inputs-nix-flake",
-        "owner": "rydnr",
-        "ref": "0.0.15",
-        "repo": "nix-dry-wit-scripts",
-        "type": "github"
-      }
-    },
-    "update-sha256-nix-flake": {
-      "inputs": {
-        "dry-wit": [
-          "dry-wit"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixos": [
-          "nixos"
-        ],
-        "pythoneda-shared-pythoneda-banner": "pythoneda-shared-pythoneda-banner_4"
-      },
-      "locked": {
-        "dir": "update-sha256-nix-flake",
-        "lastModified": 1702671085,
-        "narHash": "sha256-u2xkQWdAiaq9u8f63HuPgcoSOc+lp6LTF8zIJS36oG4=",
-        "owner": "rydnr",
-        "repo": "nix-dry-wit-scripts",
-        "rev": "c75a66ff3d57226af6ba51157f4e29044411cf3a",
-        "type": "github"
-      },
-      "original": {
-        "dir": "update-sha256-nix-flake",
-        "owner": "rydnr",
-        "ref": "0.0.15",
-        "repo": "nix-dry-wit-scripts",
-        "type": "github"
+        "pythoneda-shared-banner": "pythoneda-shared-banner"
       }
     }
   },

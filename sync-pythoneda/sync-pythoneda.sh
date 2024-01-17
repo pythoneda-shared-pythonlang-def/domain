@@ -14,15 +14,15 @@ DW.import git;
 function main() {
 
   local _projects=( \
-    "pythoneda-shared-pythoneda/banner" \
-    "pythoneda-shared-pythoneda/domain" \
-    "pythoneda-shared-pythoneda/infrastructure" \
+    "pythoneda-shared/banner" \
+    "pythoneda-shared/domain" \
+    "pythoneda-shared/infrastructure" \
     "pythoneda-shared-artifact/events" \
     "pythoneda-shared-artifact/artifact-events" \
     "pythoneda-shared-git/shared" \
     "pythoneda-shared-nix-flake/shared" \
     "pythoneda-shared-artifact/shared" \
-    "pythoneda-shared-pythoneda/application" \
+    "pythoneda-shared/application" \
     "pythoneda-shared-artifact/artifact-shared" \
     "pythoneda-shared-artifact/events-infrastructure" \
     "pythoneda-shared-artifact/artifact-events-infrastructure" \

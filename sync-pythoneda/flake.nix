@@ -27,10 +27,10 @@
       inputs.nixos.follows = "nixos";
       url = "github:rydnr/dry-wit/3.0.14?dir=nix";
     };
-    pythoneda-shared-pythoneda-banner = {
+    pythoneda-shared-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythoneda-def/banner/0.0.39";
+      url = "github:pythoneda-shared-def/banner/0.0.39";
     };
   };
   outputs = inputs:
@@ -53,7 +53,7 @@
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
-        shared = import "${pythoneda-shared-pythoneda-banner}/nix/shared.nix";
+        shared = import "${pythoneda-shared-banner}/nix/shared.nix";
         sync-pythoneda-for = { dry-wit }:
           pkgs.stdenv.mkDerivation rec {
             inherit pname version;
