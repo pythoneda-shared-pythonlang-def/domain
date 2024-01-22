@@ -13,58 +13,10 @@ DW.import git;
 # use: main
 function main() {
 
-  local _projects=( \
-    "pythoneda-shared/banner" \
-    "pythoneda-shared/domain" \
-    "pythoneda-shared/infrastructure" \
-    "pythoneda-shared-artifact/events" \
-    "pythoneda-shared-artifact/artifact-events" \
-    "pythoneda-shared-git/shared" \
-    "pythoneda-shared-nix-flake/shared" \
-    "pythoneda-shared-artifact/shared" \
-    "pythoneda-shared/application" \
-    "pythoneda-shared-artifact/artifact-shared" \
-    "pythoneda-shared-artifact/events-infrastructure" \
-    "pythoneda-shared-artifact/artifact-events-infrastructure" \
-    "pythoneda-shared-artifact/artifact-infrastructure" \
-    "pythoneda-shared-artifact/infrastructure" \
-    "pythoneda-shared-artifact/application" \
-    "pythoneda-shared-code-requests/shared" \
-    "pythoneda-shared-code-requests/events" \
-    "pythoneda-shared-code-requests/events-infrastructure" \
-    "pythoneda-shared-code-requests/jupyterlab" \
-    "pythoneda-shared-artifact/code-events" \
-    "pythoneda-shared-artifact/code-events-infrastructure" \
-    "pythoneda-realm-rydnr/events" \
-    "pythoneda-realm-rydnr/events-infrastructure" \
-    "pythoneda-realm-rydnr/realm" \
-    "pythoneda-realm-rydnr/infrastructure" \
-    "pythoneda-realm-rydnr/application" \
-    "pythoneda-realm-unveilingpartner/realm" \
-    "pythoneda-realm-unveilingpartner/infrastructure" \
-    "pythoneda-realm-unveilingpartner/application" \
-    "pythoneda-sandbox/python-dep" \
-    "pythoneda-sandbox/python" \
-    "pythoneda-sandbox-artifact/python-dep" \
-    "pythoneda-sandbox-artifact/python" \
-    "pythoneda-sandbox-artifact/python-artifact" \
-    "pythoneda-sandbox-artifact/python-infrastructure" \
-    "pythoneda-sandbox-artifact/python-application" \
-    "pythoneda-artifact/git" \
-    "pythoneda-artifact/git-infrastructure" \
-    "pythoneda-artifact/git-application" \
-    "pythoneda-artifact/nix-flake" \
-    "pythoneda-artifact/nix-flake-infrastructure" \
-    "pythoneda-artifact/nix-flake-application" \
-    "pythoneda-artifact/code-request-infrastructure" \
-    "pythoneda-artifact/code-request-application" \
-    "pythoneda-shared-pythoneda-artifact/domain" \
-    "pythoneda-shared-pythoneda-artifact/domain-infrastructure" \
-    "pythoneda-shared-pythoneda-artifact/domain-application" \
-    "pythoneda-tools-artifact/git-hook" \
-    "pythoneda-sandbox/flow-sample" \
-    "pythoneda-sandbox/flow-sample-tests"
-    );
+  local _projects=();
+  _projects+=("${PYTHONEDA_PROJECTS[@]}");
+  _projects+=("${TESTS[@]}");
+  _projects+=("${RYDNR_PROJECTS[@]}");
 
   # from sync-pythoneda-project.sh -vv -h
   local -i _skippedProject=24;
@@ -94,6 +46,7 @@ function main() {
   local _output;
   local -i _index=0;
   local -i _totalProjects=${#_projects[@]};
+  local _rootFolder;
 
   createTempFile;
   local _syncPythonedaProjectOutput="${RESULT}";
@@ -113,8 +66,14 @@ function main() {
       exitWithErrorCode CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "${_project}";
     fi
     _index=$((_index + 1));
+
+    if root_folder_for "${_project}"; then
+      _root_folder="${RESULT}";
+    else
+      exitWithErrorCode UNKNOWN_PROJECT "${_project}";
+    fi
     logInfo "[${_index}/${_totalProjects}] Processing ${_defOwner}/${_repo}";
-    "${SYNC_PYTHONEDA_PROJECT}" "${_commonArgs[@]}" -p "${ROOT_FOLDER}/${_defOwner}/${_repo}" | tee "${_syncPythonedaProjectOutput}";
+    "${SYNC_PYTHONEDA_PROJECT}" "${_commonArgs[@]}" -p "${_root_folder}/${_defOwner}/${_repo}" | tee "${_syncPythonedaProjectOutput}";
     _rescode=$?;
     if isTrue ${_rescode}; then
       _updatedProjects+=("${_defOwner}/${_repo}");
@@ -167,6 +126,40 @@ function main() {
     echo "[ ${_updatedProjects[*]} ]"
     IFS="${_origIFS}";
   fi
+}
+
+# fun: root_folder_for project
+# api: public
+# txt: Returns the root folder for given project.
+# opt: project: The project to check.
+# txt: Returns 0/TRUE if the project is known; 1/FALSE otherwise.
+# txt: If the function returns 0/TRUE, the variable RESULT will contain the root folder.
+# use: if root_folder_for "pythoneda-shared/banner"; then
+# use:   echo "root folder: ${RESULT}";
+# use: fi
+function root_folder_for() {
+  local _project="${1}";
+  checkNotEmpty project "${_project}" 1;
+
+  local -i _rescode=${FALSE};
+  local _result;
+
+  if arrayContains "${_project}" "${PYTHONEDA_PROJECTS[@]}"; then
+    _rescode=${TRUE};
+    _result="${PYTHONEDA_ROOT_FOLDER}";
+  elif arrayContains "${_project}" "${TESTS[@]}"; then
+    _rescode=${TRUE};
+    _result="${TESTS_ROOT_FOLDER}";
+  elif arrayContains "${_project}" "${RYDNR_PROJECTS[@]}"; then
+    _rescode=${TRUE};
+    _result="${RYDNR_ROOT_FOLDER}";
+  fi
+
+  if isTrue ${_rescode}; then
+    export RESULT="${_result}";
+  fi
+
+  return ${_rescode};
 }
 
 # fun: extract_owner project
@@ -229,7 +222,9 @@ setScriptCopyright "Copyleft 2023-today Automated Computing Machinery S.L.";
 
 DW.getScriptName;
 SCRIPT_NAME="${RESULT}";
-addCommandLineFlag "rootFolder" "r" "The root folder of PythonEDA definition projects" MANDATORY EXPECTS_ARGUMENT;
+addCommandLineFlag "pythonedaRootFolder" "pr" "The root folder of PythonEDA definition projects" MANDATORY EXPECTS_ARGUMENT "${HOME}/github/pythoneda-def";
+addCommandLineFlag "testsRootFolder" "tr" "The root folder of the definition repositories of tests" MANDATORY EXPECTS_ARGUMENT "${HOME}/github/pythoneda-tests-def";
+addCommandLineFlag "rydnrRootFolder" "rr" "The root folder of Rydnr definition projects" MANDATORY EXPECTS_ARGUMENT "${HOME}/github/rydnr";
 addCommandLineFlag "githubToken" "t" "The github token" OPTIONAL EXPECTS_ARGUMENT;
 addCommandLineFlag "releaseName" "R" "The release name" MANDATORY EXPECTS_ARGUMENT;
 addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUMENT;
@@ -240,12 +235,82 @@ checkReq jq;
 checkReq sed;
 checkReq grep;
 
-addError ROOT_FOLDER_DOES_NOT_EXIST "Given root folder for definition projects does not exist:";
+addError PYTHONEDA_ROOT_FOLDER_DOES_NOT_EXIST "Given root folder for definition projects does not exist:";
+addError TESTS_ROOT_FOLDER_DOES_NOT_EXIST "Given root folder for definition projects does not exist:";
+addError RYDNR_ROOT_FOLDER_DOES_NOT_EXIST "Given root folder for definition projects does not exist:";
 addError PROJECT_FOLDER_DOES_NOT_EXIST "Project folder does not exist:"
 addError CANNOT_EXTRACT_THE_OWNER_OF_PROJECT "Cannot extract the owner of project:";
 addError CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "Cannot extract the repository name of project:";
 addError CANNOT_UPDATE_LATEST_INPUTS "Cannot update inputs to its latest versions in";
 addError CANNOT_RELEASE_TAG "Cannot create a new release tag in";
+
+PYTHONEDA_PROJECTS=( \
+  "pythoneda-shared/banner" \
+  "pythoneda-shared/domain" \
+  "pythoneda-shared/infrastructure" \
+  "pythoneda-shared-artifact/events" \
+  "pythoneda-shared-artifact/artifact-events" \
+  "pythoneda-shared-git/shared" \
+  "pythoneda-shared-nix-flake/shared" \
+  "pythoneda-shared-artifact/shared" \
+  "pythoneda-shared/application" \
+  "pythoneda-shared-artifact/artifact-shared" \
+  "pythoneda-shared-artifact/events-infrastructure" \
+  "pythoneda-shared-artifact/artifact-events-infrastructure" \
+  "pythoneda-shared-artifact/artifact-infrastructure" \
+  "pythoneda-shared-artifact/infrastructure" \
+  "pythoneda-shared-artifact/application" \
+  "pythoneda-shared-code-requests/shared" \
+  "pythoneda-shared-code-requests/events" \
+  "pythoneda-shared-code-requests/events-infrastructure" \
+  "pythoneda-shared-code-requests/jupyterlab" \
+  "pythoneda-shared-artifact/code-events" \
+  "pythoneda-shared-artifact/code-events-infrastructure" \
+  "pythoneda-realm-rydnr/events" \
+  "pythoneda-realm-rydnr/events-infrastructure" \
+  "pythoneda-realm-rydnr/realm" \
+  "pythoneda-realm-rydnr/infrastructure" \
+  "pythoneda-realm-rydnr/application" \
+  "pythoneda-realm-unveilingpartner/realm" \
+  "pythoneda-realm-unveilingpartner/infrastructure" \
+  "pythoneda-realm-unveilingpartner/application" \
+  "pythoneda-sandbox/python-dep" \
+  "pythoneda-sandbox/python" \
+  "pythoneda-sandbox-artifact/python-dep" \
+  "pythoneda-sandbox-artifact/python" \
+  "pythoneda-sandbox-artifact/python-artifact" \
+  "pythoneda-sandbox-artifact/python-infrastructure" \
+  "pythoneda-sandbox-artifact/python-application" \
+  "pythoneda-artifact/git" \
+  "pythoneda-artifact/git-infrastructure" \
+  "pythoneda-artifact/git-application" \
+  "pythoneda-artifact/nix-flake" \
+  "pythoneda-artifact/nix-flake-infrastructure" \
+  "pythoneda-artifact/nix-flake-application" \
+  "pythoneda-artifact/code-request-infrastructure" \
+  "pythoneda-artifact/code-request-application" \
+  "pythoneda-artifact/shared-domain" \
+  "pythoneda-artifact/shared-domain-infrastructure" \
+  "pythoneda-artifact/shared-domain-application" \
+  "pythoneda-shared-runtime/lifecycle-events" \
+  "pythoneda-shared-runtime/lifecycle-events-infrastructure" \
+  "pythoneda-runtime/boot" \
+  "pythoneda-runtime/boot-infrastructure" \
+  "pythoneda-runtime/boot-application" \
+  "pythoneda-tools-artifact/git-hook" \
+  "pythoneda-sandbox/flow-sample" \
+  );
+
+TESTS=( \
+  "pythoneda-sandbox/flow-sample-tests" \
+  );
+
+RYDNR_PROJECTS=( \
+  "tools/nix-flake-to-graphviz" \
+  "learn/basics-pytorch" \
+  "learn/leetcode-python" \
+  "grammars/nix-flake-python-antlr4-parser" \
+  );
 
 ## deps
 export SYNC_PYTHONEDA_PROJECT="__SYNC_PYTHONEDA_PROJECT__";
@@ -253,9 +318,33 @@ if areEqual "${SYNC_PYTHONEDA_PROJECT}" "__SYNC_PYTHONEDA_PROJECT__"; then
   export SYNC_PYTHONEDA_PROJECT="sync-pythoneda-project.sh";
 fi
 
-function dw_check_rootFolder_cli_flag() {
-  if ! fileExists "${ROOT_FOLDER}"; then
-    exitWithErrorCode ROOT_FOLDER_DOES_NOT_EXIST "${ROOT_FOLDER}"
+function dw_check_pythonedaRootFolder_cli_flag() {
+  if ! fileExists "${PYTHONEDA_ROOT_FOLDER}"; then
+    exitWithErrorCode PYTHONEDA_ROOT_FOLDER_DOES_NOT_EXIST "${PYTHONEDA_ROOT_FOLDER}";
   fi
+}
+
+function dw_parse_pythonedaRootFolder_cli_flag() {
+  export PYTHONEDA_ROOT_FOLDER="${1}";
+}
+
+function dw_check_testsRootFolder_cli_flag() {
+  if ! fileExists "${TESTS_ROOT_FOLDER}"; then
+    exitWithErrorCode TESTS_ROOT_FOLDER_DOES_NOT_EXIST "${TESTS_ROOT_FOLDER}";
+  fi
+}
+
+function dw_parse_testsRootFolder_cli_flag() {
+  export TESTS_ROOT_FOLDER="${1}";
+}
+
+function dw_check_rydnrRootFfolder_cli_flag() {
+  if ! fileExists "${RYDNR_ROOT_FOLDER}"; then
+    exitWithErrorCode RYDNR_ROOT_FOLDER_DOES_NOT_EXIST "${RYDNR_ROOT_FOLDER}";
+  fi
+}
+
+function dw_parse_rydnrRootFolder_cli_flag() {
+  export RYDNR_ROOT_FOLDER="${1}";
 }
 # vim: syntax=sh ts=2 sw=2 sts=4 sr noet
