@@ -294,6 +294,11 @@ PYTHONEDA_PROJECTS=( \
   "pythoneda-artifact/shared-domain-application" \
   "pythoneda-shared-runtime/lifecycle-events" \
   "pythoneda-shared-runtime/lifecycle-events-infrastructure" \
+  "pythoneda-shared-runtime-infrastructure/eventstoredb-events" \
+  "pythoneda-shared-runtime-infrastructure/eventstoredb-events-infrastructure" \
+  "pythoneda-runtime-infrastructure/eventstoredb" \
+  "pythoneda-runtime-infrastructure/eventstoredb-infrastructure" \
+  "pythoneda-runtime-infrastructure/eventstoredb-application" \
   "pythoneda-runtime/boot" \
   "pythoneda-runtime/boot-infrastructure" \
   "pythoneda-runtime/boot-application" \
