@@ -1,6 +1,6 @@
 # Domain
 
-Definition for [pythoneda-shared-pythoneda](https://github.com/pythoneda-shared-pythoneda "pythoneda-shared-pythoneda")/[domain](https://github.com/pythoneda-shared-pythoneda/domain "domain").
+Definition for [pythoneda-shared](https://github.com/pythoneda-shared "pythoneda-shared")/[domain](https://github.com/pythoneda-shared/domain "domain").
 
 ## How to declare it in your flake
 
@@ -11,10 +11,10 @@ Check the latest tag of this repository, and use it instead of the `[version]` p
   description = "[..]";
   inputs = rec {
     [..]
-    pythoneda-shared-pythoneda-domain = {
+    pythoneda-shared-domain = {
       [optional follows]
       url =
-        "github:pythoneda-shared-pythoneda-def/domain/[version]";
+        "github:pythoneda-shared-def/domain/[version]";
     };
   };
   outputs = [..]
@@ -25,7 +25,7 @@ Should you use another PythonEDA modules, you might want to pin those also used 
 
 Use the specific package depending on your system (one of `flake-utils.lib.defaultSystems`) and Python version:
 
-- `#packages.[system].pythoneda-shared-pythoneda-domain-python38` 
-- `#packages.[system].pythoneda-shared-pythoneda-domain-python39` 
-- `#packages.[system].pythoneda-shared-pythoneda-domain-python310` 
-- `#packages.[system].pythoneda-shared-pythoneda-domain-python311`
+- `#packages.[system].pythoneda-shared-domain-python38` 
+- `#packages.[system].pythoneda-shared-domain-python39` 
+- `#packages.[system].pythoneda-shared-domain-python310` 
+- `#packages.[system].pythoneda-shared-domain-python311`

@@ -292,6 +292,7 @@ PYTHONEDA_PROJECTS=( \
   "pythoneda-artifact/shared-domain" \
   "pythoneda-artifact/shared-domain-infrastructure" \
   "pythoneda-artifact/shared-domain-application" \
+  "pythoneda-shared-git/github" \
   "pythoneda-shared-runtime/lifecycle-events" \
   "pythoneda-shared-runtime/lifecycle-events-infrastructure" \
   "pythoneda-shared-runtime-infrastructure/eventstoredb-events" \
@@ -303,6 +304,7 @@ PYTHONEDA_PROJECTS=( \
   "pythoneda-runtime/boot-infrastructure" \
   "pythoneda-runtime/boot-application" \
   "pythoneda-tools-artifact/git-hook" \
+  "pythoneda-tools-artifact/new-domain" \
   "pythoneda-sandbox/flow-sample" \
   );
 
