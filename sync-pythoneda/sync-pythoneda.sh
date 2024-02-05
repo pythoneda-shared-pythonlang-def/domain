@@ -250,6 +250,7 @@ PYTHONEDA_PROJECTS=( \
   "pythoneda-shared/infrastructure" \
   "pythoneda-shared-artifact/events" \
   "pythoneda-shared-artifact/artifact-events" \
+  "pythoneda-shared-pythonlang/shell" \
   "pythoneda-shared-git/shared" \
   "pythoneda-shared-nix-flake/shared" \
   "pythoneda-shared-artifact/shared" \
