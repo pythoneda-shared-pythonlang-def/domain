@@ -168,7 +168,7 @@ function root_folder_for() {
 # opt: project: The project name.
 # txt: Returns 0/TRUE if the owner could be extracted; 1/FALSE otherwise.
 # txt: If the function returns 0/TRUE, the variable RESULT will contain the owner.
-# use: if extract_owner "pythoneda-shared-pythoneda/domain"; then echo "Owner: ${RESULT}"; fi
+# use: if extract_owner "pythoneda-shared-pythonlang/domain"; then echo "Owner: ${RESULT}"; fi
 function extract_owner() {
   local _project="${1}";
   checkNotEmpty project "${_project}" 1;
@@ -195,7 +195,7 @@ function extract_owner() {
 # opt: project: The project name.
 # txt: Returns 0/TRUE if the repository could be extracted; 1/FALSE otherwise.
 # txt: If the function returns 0/TRUE, the variable RESULT will contain the repository name.
-# use: if extract_repo "pythoneda-shared-pythoneda/domain"; then echo "Repo: ${RESULT}"; fi
+# use: if extract_repo "pythoneda-shared-pythonlang/domain"; then echo "Repo: ${RESULT}"; fi
 function extract_repo() {
   local _project="${1}";
   checkNotEmpty project "${_project}" 1;
@@ -245,16 +245,16 @@ addError CANNOT_UPDATE_LATEST_INPUTS "Cannot update inputs to its latest version
 addError CANNOT_RELEASE_TAG "Cannot create a new release tag in";
 
 PYTHONEDA_PROJECTS=( \
-  "pythoneda-shared/banner" \
-  "pythoneda-shared/domain" \
-  "pythoneda-shared/infrastructure" \
+  "pythoneda-shared-pythonlang/banner" \
+  "pythoneda-shared-pythonlang/domain" \
+  "pythoneda-shared-pythonlang/infrastructure" \
   "pythoneda-shared-artifact/events" \
   "pythoneda-shared-artifact/artifact-events" \
   "pythoneda-shared-pythonlang/shell" \
   "pythoneda-shared-git/shared" \
   "pythoneda-shared-nix-flake/shared" \
   "pythoneda-shared-artifact/shared" \
-  "pythoneda-shared/application" \
+  "pythoneda-shared-pythonlang/application" \
   "pythoneda-shared-artifact/artifact-shared" \
   "pythoneda-shared-artifact/events-infrastructure" \
   "pythoneda-shared-artifact/artifact-events-infrastructure" \

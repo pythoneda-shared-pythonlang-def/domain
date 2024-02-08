@@ -4,7 +4,7 @@ scripts/process_pythonpath.py
 
 This file defines ProcessPythonpath class.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-pythoneda-def/domain
+Copyright (C) 2023-today rydnr's pythoneda-shared-pythonlang-def/domain
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

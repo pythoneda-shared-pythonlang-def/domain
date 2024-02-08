@@ -2,7 +2,7 @@
 #
 # This file packages sync-pythoneda-project script as a Nix flake.
 #
-# Copyright (C) 2008-today rydnr's nix-dry-wit-scripts
+# Copyright (C) 2008-today rydnr's https://github.com/pythoneda-shared-pythonlang-def/domain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@
       inputs.nixos.follows = "nixos";
       url = "github:rydnr/dry-wit/3.0.14?dir=nix";
     };
-    pythoneda-shared-banner = {
+    pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-def/banner/0.0.37";
+      url = "github:pythoneda-shared-def/banner/0.0.48";
     };
     release-tag = {
       inputs.flake-utils.follows = "flake-utils";
@@ -73,7 +73,7 @@
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
-        shared = import "${pythoneda-shared-banner}/nix/shared.nix";
+        shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
         sync-pythoneda-project-for = { dry-wit, release-tag
           , update-latest-inputs-nix-flake, update-sha256-nix-flake }:
           pkgs.stdenv.mkDerivation rec {
@@ -131,7 +131,7 @@
             update-latest-inputs-nix-flake =
               update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-bash5;
             update-sha256-nix-flake =
-              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-sync;
+              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-bash5;
           };
           bash5-pythoneda-projects-zsh = sync-pythoneda-project-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;

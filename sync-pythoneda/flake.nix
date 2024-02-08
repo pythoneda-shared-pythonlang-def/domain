@@ -2,7 +2,7 @@
 #
 # This file packages sync-pythoneda script as a Nix flake.
 #
-# Copyright (C) 2008-today rydnr's nix-dry-wit-scripts
+# Copyright (C) 2008-today rydnr's https://github.com/pythoneda-shared-pythonlang-def/domain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@
       inputs.nixos.follows = "nixos";
       url = "github:rydnr/dry-wit/3.0.14?dir=nix";
     };
-    pythoneda-shared-banner = {
+    pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-def/banner/0.0.39";
+      url = "github:pythoneda-shared-def/banner/0.0.48";
     };
   };
   outputs = inputs:
@@ -53,7 +53,7 @@
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
-        shared = import "${pythoneda-shared-banner}/nix/shared.nix";
+        shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
         sync-pythoneda-for = { dry-wit }:
           pkgs.stdenv.mkDerivation rec {
             inherit pname version;
@@ -68,7 +68,7 @@
               cp sync-pythoneda/README.md LICENSE $out/
               substituteInPlace $out/bin/sync-pythoneda.sh \
                 --replace "#!/usr/bin/env dry-wit" "#!/usr/bin/env ${dry-wit}/dry-wit" \
-                --replace "__SYNC_PYTHONEDA_PROJECT__" "${out}/bin/sync-pythoneda-project.sh";
+                --replace "__SYNC_PYTHONEDA_PROJECT__" "$out/bin/sync-pythoneda-project.sh";
             '';
 
             meta = with pkgs.lib; {
@@ -99,27 +99,12 @@
           sync-pythoneda-default = sync-pythoneda-bash5;
           sync-pythoneda-bash5 = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-bash5;
-            release-tag = release-tag.packages.${system}.release-tag-bash5;
-            update-latest-inputs-nix-flake =
-              update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-bash5;
-            update-sha256-nix-flake =
-              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-sync;
           };
           bash5-pythoneda-projects-zsh = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;
-            release-tag = release-tag.packages.${system}.release-tag-zsh;
-            update-latest-inputs-nix-flake =
-              update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-zsh;
-            update-sha256-nix-flake =
-              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-zsh;
           };
           sync-pythoneda-fish = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-fish;
-            release-tag = release-tag.packages.${system}.release-tag-fish;
-            update-latest-inputs-nix-flake =
-              update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-fish;
-            update-sha256-nix-flake =
-              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-fish;
           };
         };
       });
