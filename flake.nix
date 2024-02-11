@@ -39,8 +39,8 @@
       let
         org = "pythoneda-shared-pythonlang";
         repo = "domain";
-        version = "0.0.28";
-        sha256 = "1wn7mr0g8wapnv2f00lnq7nhjbnbj26n9ygrb82xwgm69z1xdcvn";
+        version = "0.0.30";
+        sha256 = "04ngpahspvclqw1xnc5a1ns0dnbvcmb0ajq1zwi0hjw09hkcaw11";
         pname = "${org}-${repo}";
         pkgs = import nixos { inherit system; };
         description = "Support for event-driven architectures in Python";
