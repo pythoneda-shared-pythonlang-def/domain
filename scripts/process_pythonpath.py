@@ -111,7 +111,7 @@ class ProcessPythonpath:
             repos[:] = [d for d in repos if d not in exclude_dirs]
             for repo in repos:
                 current_modules = self.find_modules_under(Path(org_folder) / repo)
-                if set(current_modules) == module_set:
+                if module_set.issubset(set(current_modules)):
                     return Path(org_folder) / repo
 
         # If no directory contains all modules, return None
