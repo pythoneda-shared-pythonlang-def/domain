@@ -299,10 +299,10 @@ class ProcessPythonpath:
         instance = cls()
         root_folder = args.root_folder
 
-        sys.path = instance.sort_syspath(sys.path)
-
         if args.command == "development" and root_folder is not None:
             sys.path = instance.syspath_for_nix_develop(sys.path, root_folder)
+
+        sys.path = instance.sort_syspath(sys.path)
 
         instance.print_syspath(sys.path)
 
