@@ -23,7 +23,7 @@ import argparse
 import os
 from pathlib import Path
 import sys
-from typing import List
+from typing import List, Set
 
 
 class ProcessPythonpath:
@@ -111,13 +111,28 @@ class ProcessPythonpath:
             repos[:] = [d for d in repos if d not in exclude_dirs]
             for repo in repos:
                 current_modules = self.find_modules_under(Path(org_folder) / repo)
-                if module_set.issubset(set(current_modules)):
+                if self.modules_match(set(current_modules), module_set):
                     return Path(org_folder) / repo
 
         # If no directory contains all modules, return None
         return None
 
-    def find_out_root_folder_for(self, namespace: str) -> str:
+    def modules_match(self, firstSet: Set, secondSet: Set) -> bool:
+        """
+        Checks if two sets of modules match.
+        :param firstSet: The first set.
+        :type firstSet: Set
+        :param secondSet: The second set.
+        :type secondSet: Set
+        :return: True if they match, False otherwise.
+        :rtype: bool
+        """
+        excluded = {"tests", "scripts"}
+        return {item for item in firstSet if item not in excluded} == {
+            item for item in secondSet if item not in excluded
+        }
+
+    def find_out_root_folder_for(self, namespace: str = None) -> str:
         """
         Finds out the root folder for given namespace.
         :param namespace: The namespace.
@@ -125,7 +140,12 @@ class ProcessPythonpath:
         :return: The root folder, of None if none found.
         :rtype: str
         """
-        return os.environ.get(f"PYTHONEDA_{namespace.upper()}_ROOT_FOLDER")
+        if namespace is None:
+            key = f"PYTHONEDA_ROOT_FOLDER"
+        else:
+            key = f"PYTHONEDA_{namespace.upper()}_ROOT_FOLDER"
+
+        return os.environ.get(key)
 
     def syspath_for_nix_develop(self, sysPath: List, rootFolder: str) -> List:
         """
@@ -299,12 +319,17 @@ class ProcessPythonpath:
         instance = cls()
         root_folder = args.root_folder
 
+        if root_folder is None:
+            root_folder = instance.find_out_root_folder_for()
+
+        original_syspath = sys.path.copy()
+        new_syspath = instance.sort_syspath(sys.path.copy())
+
         if args.command == "development" and root_folder is not None:
-            sys.path = instance.syspath_for_nix_develop(sys.path, root_folder)
+            new_syspath = instance.syspath_for_nix_develop(new_syspath, root_folder)
+            new_syspath = instance.sort_syspath(new_syspath)
 
-        sys.path = instance.sort_syspath(sys.path)
-
-        instance.print_syspath(sys.path)
+        instance.print_syspath(new_syspath)
 
 
 if __name__ == "__main__":
