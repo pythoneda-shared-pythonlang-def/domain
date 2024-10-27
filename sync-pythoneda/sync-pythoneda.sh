@@ -332,9 +332,9 @@ ACMSL_PROJECTS=(
 
 ## deps
 export SYNC_PYTHONEDA_PROJECT="__SYNC_PYTHONEDA_PROJECT__"
-if areEqual "${SYNC_PYTHONEDA_PROJECT}" "__SYNC_PYTHONEDA_PROJECT__"; then
-  export SYNC_PYTHONEDA_PROJECT="./sync-pythoneda-project.sh"
-fi
+#if areEqual "${SYNC_PYTHONEDA_PROJECT}" "__SYNC_PYTHONEDA_PROJECT__"; then
+#  export SYNC_PYTHONEDA_PROJECT="./sync-pythoneda-project.sh"
+#fi
 
 function dw_check_pythonedaRootFolder_cli_flag() {
   if ! fileExists "${PYTHONEDA_ROOT_FOLDER}"; then
