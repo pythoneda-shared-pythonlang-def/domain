@@ -21,11 +21,11 @@
     "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/23.11";
+    nixos.url = "github:NixOS/nixpkgs/24.05";
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/dry-wit/3.0.14?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.18?dir=nix";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
@@ -43,10 +43,10 @@
         defaultSystems ++ [ "armv6l-linux" ];
     in flake-utils.lib.eachSystem supportedSystems (system:
       let
-        org = "rydnr";
-        repo = "nix-dry-wit-scripts";
-        pname = "${org}-${repo}";
-        version = "0.0.18";
+        org = "pythoneda-shared-pythonlang-def";
+        repo = "domain";
+        pname = "${org}-${repo}-sync-pythoneda";
+        version = "0.0.43";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
@@ -63,7 +63,13 @@
 
             installPhase = ''
               mkdir -p $out/bin
-              cp sync-pythoneda/sync-pythoneda.sh sync-pythoneda-project/sync-pythoneda-project.sh $out/bin
+              echo "#!/usr/bin/env ${dry-wit}/dry-wit" > $out/bin/sync-pythoneda-project.sh
+              echo "# Copyright 2023-today Automated Computing Machinery S.L." >> $out/bin/sync-pythoneda-project.sh
+              echo "# Distributed under the terms of the GNU General Public License v3" >> $out/bin/sync-pythoneda-project.sh
+              echo "" >> $out/bin/sync-pythoneda-project.sh
+              echo "nix run github:${org}/${repo}/${version}?dir=sync-pythoneda-project" >> $out/bin/sync-pythoneda-project.sh
+              echo "# vim: syntax=sh ts=2 sw=2 sts=4 sr noet" >> $out/bin/sync-pythoneda-project.sh
+              cp sync-pythoneda/sync-pythoneda.sh $out/bin/
               chmod +x $out/bin/sync-pythoneda.sh $out/bin/sync-pythoneda-project.sh
               cp sync-pythoneda/README.md LICENSE $out/
               substituteInPlace $out/bin/sync-pythoneda.sh \
