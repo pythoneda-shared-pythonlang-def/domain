@@ -175,17 +175,17 @@
       },
       "locked": {
         "dir": "release-tag",
-        "lastModified": 1730136417,
-        "narHash": "sha256-qGbpSu75AZuWeGdnmrN1jlCe1SuxNxHbosTR+uIG+eI=",
+        "lastModified": 1730138825,
+        "narHash": "sha256-q6OUF3UJOFDrU/WsHFH0oFIR+O/aTatR5yezYCbs588=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "e43fdbe4e69e4171501e23484e7243240d40ef62",
+        "rev": "1f19842038a65e85ea9d9e6c9b31e04c77a52a18",
         "type": "github"
       },
       "original": {
         "dir": "release-tag",
         "owner": "rydnr",
-        "ref": "0.0.18",
+        "ref": "0.0.19",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -216,17 +216,17 @@
       },
       "locked": {
         "dir": "update-latest-inputs-nix-flake",
-        "lastModified": 1730136417,
-        "narHash": "sha256-qGbpSu75AZuWeGdnmrN1jlCe1SuxNxHbosTR+uIG+eI=",
+        "lastModified": 1730138825,
+        "narHash": "sha256-q6OUF3UJOFDrU/WsHFH0oFIR+O/aTatR5yezYCbs588=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "e43fdbe4e69e4171501e23484e7243240d40ef62",
+        "rev": "1f19842038a65e85ea9d9e6c9b31e04c77a52a18",
         "type": "github"
       },
       "original": {
         "dir": "update-latest-inputs-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.18",
+        "ref": "0.0.19",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -246,17 +246,17 @@
       },
       "locked": {
         "dir": "update-sha256-nix-flake",
-        "lastModified": 1730136417,
-        "narHash": "sha256-qGbpSu75AZuWeGdnmrN1jlCe1SuxNxHbosTR+uIG+eI=",
+        "lastModified": 1730138825,
+        "narHash": "sha256-q6OUF3UJOFDrU/WsHFH0oFIR+O/aTatR5yezYCbs588=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "e43fdbe4e69e4171501e23484e7243240d40ef62",
+        "rev": "1f19842038a65e85ea9d9e6c9b31e04c77a52a18",
         "type": "github"
       },
       "original": {
         "dir": "update-sha256-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.18",
+        "ref": "0.0.19",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
