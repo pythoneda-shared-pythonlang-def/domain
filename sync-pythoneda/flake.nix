@@ -46,7 +46,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda";
-        version = "0.0.44";
+        version = "0.0.45";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
@@ -54,7 +54,7 @@
         homepage = "https://github.com/${org}/${repo}";
         maintainers = [ "rydnr <github@acm-sl.org>" ];
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
-        sync-pythoneda-for = { dry-wit }:
+        sync-pythoneda-for = { dry-wit, sh }:
           pkgs.stdenv.mkDerivation rec {
             inherit pname version;
             src = ../.;
@@ -63,7 +63,7 @@
 
             installPhase = ''
               mkdir -p $out/bin
-              echo "#!/usr/bin/env ${dry-wit}/dry-wit" > $out/bin/sync-pythoneda-project.sh
+              echo "#!/usr/bin/env ${sh}/bin/sh" > $out/bin/sync-pythoneda-project.sh
               echo "# Copyright 2023-today Automated Computing Machinery S.L." >> $out/bin/sync-pythoneda-project.sh
               echo "# Distributed under the terms of the GNU General Public License v3" >> $out/bin/sync-pythoneda-project.sh
               echo "" >> $out/bin/sync-pythoneda-project.sh
@@ -105,12 +105,15 @@
           sync-pythoneda-default = sync-pythoneda-bash5;
           sync-pythoneda-bash5 = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-bash5;
+            sh = pkgs.bash_5;
           };
           bash5-pythoneda-projects-zsh = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;
+            sh = pkgs.bash_zsh;
           };
           sync-pythoneda-fish = sync-pythoneda-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-fish;
+            sh = pkgs.bash_fish;
           };
         };
       });
