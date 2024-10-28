@@ -46,7 +46,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda";
-        version = "0.0.47";
+        version = "0.0.48";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
@@ -67,7 +67,7 @@
               echo "# Copyright 2023-today Automated Computing Machinery S.L." >> $out/bin/sync-pythoneda-project.sh
               echo "# Distributed under the terms of the GNU General Public License v3" >> $out/bin/sync-pythoneda-project.sh
               echo "" >> $out/bin/sync-pythoneda-project.sh
-              echo "${pkgs.nix}/bin/nix run github:${org}/${repo}/${version}?dir=sync-pythoneda-project -- \$@" >> $out/bin/sync-pythoneda-project.sh
+              echo "${pkgs.nix}/bin/nix run github:${org}/${repo}/${version}?dir=sync-pythoneda-project -- \"\$@\"" >> $out/bin/sync-pythoneda-project.sh
               echo "# vim: syntax=sh ts=2 sw=2 sts=4 sr noet" >> $out/bin/sync-pythoneda-project.sh
               cp sync-pythoneda/sync-pythoneda.sh $out/bin/
               chmod +x $out/bin/sync-pythoneda.sh $out/bin/sync-pythoneda-project.sh
