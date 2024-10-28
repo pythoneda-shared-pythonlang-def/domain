@@ -66,7 +66,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda-project";
-        version = "0.0.43";
+        version = "0.0.44";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
