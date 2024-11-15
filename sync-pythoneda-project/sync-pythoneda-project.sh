@@ -36,6 +36,9 @@ function main() {
   if ! isEmpty "${GPG_KEY_ID}"; then
     _releaseTagArgs+=("-g" "${GPG_KEY_ID}")
   fi
+  if ! isEmpty "${FORCE}"; then
+    _releaseTagArgs+=("-f")
+  fi
 
   local _projectFolder="${PROJECT_FOLDER}"
   local _project="$(dirname ${_projectFolder}/$(basename ${_projectFolder}))"
@@ -99,6 +102,7 @@ addCommandLineFlag "releaseName" "R" "The release name" MANDATORY EXPECTS_ARGUME
 addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUMENT
 addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARGUMENT "Commit created with ${SCRIPT_NAME}"
 addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}"
+addCommandLineFlag "force" "f" "Force the release" OPTIONAL NO_ARGUMENT "${FALSE}"
 
 checkReq jq
 checkReq sed
