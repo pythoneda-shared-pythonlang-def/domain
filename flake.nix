@@ -121,7 +121,7 @@
         devShells = rec {
           default = pythoneda-shared-pythonlang-domain-default;
           pythoneda-shared-pythonlang-domain-default =
-            pythoneda-shared-pythonlang-domain-python311;
+            pythoneda-shared-pythonlang-domain-python312;
           pythoneda-shared-pythonlang-domain-python38 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38
@@ -178,11 +178,25 @@
             python = pkgs.python311;
             inherit archRole layer org pkgs repo space;
           };
+          pythoneda-shared-pythonlang-domain-python312 = shared.devShell-for {
+            banner = "${
+                pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312
+              }/bin/banner.sh";
+            extra-namespaces = "";
+            nixpkgs-release = nixpkgsRelease;
+            package = packages.pythoneda-shared-pythonlang-domain-python312;
+            pythoneda-shared-pythonlang-domain =
+              packages.pythoneda-shared-pythonlang-domain-python312;
+            pythoneda-shared-pythonlang-banner =
+              pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
+            python = pkgs.python312;
+            inherit archRole layer org pkgs repo space;
+          };
         };
         packages = rec {
           default = pythoneda-shared-pythonlang-domain-default;
           pythoneda-shared-pythonlang-domain-default =
-            pythoneda-shared-pythonlang-domain-python311;
+            pythoneda-shared-pythonlang-domain-python312;
           pythoneda-shared-pythonlang-domain-python38 =
             pythoneda-shared-pythonlang-domain-for { python = pkgs.python38; };
           pythoneda-shared-pythonlang-domain-python39 =
@@ -191,6 +205,8 @@
             pythoneda-shared-pythonlang-domain-for { python = pkgs.python310; };
           pythoneda-shared-pythonlang-domain-python311 =
             pythoneda-shared-pythonlang-domain-for { python = pkgs.python311; };
+          pythoneda-shared-pythonlang-domain-python312 =
+            pythoneda-shared-pythonlang-domain-for { python = pkgs.python312; };
         };
       });
 }
