@@ -87,7 +87,11 @@ function main() {
         logDebug "${_output}"
       fi
       _failedProjects+=("${_defOwner}/${_repo}")
-      continue
+      if isTrue "${CONTINUE_ON_ERROR}"; then
+        continue
+      else
+        break
+      fi
     fi
     IFS="${_origIFS}"
   done
@@ -236,6 +240,7 @@ addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUM
 addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARGUMENT "Commit created with ${SCRIPT_NAME}"
 addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}"
 addCommandLineFlag "force" "f" "Force the release" OPTIONAL NO_ARGUMENT "${FALSE}"
+addCommandLineFlag "continueOnError" "e" "Continue on error" OPTIONAL NO_ARGUMENT "${FALSE}"
 
 checkReq jq
 checkReq sed
