@@ -51,7 +51,7 @@
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.58",
+        "ref": "0.0.59",
         "repo": "banner",
         "type": "github"
       }
