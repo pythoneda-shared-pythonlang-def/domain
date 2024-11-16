@@ -52,10 +52,6 @@ function main() {
   _rescode=$?
   if isFalse ${_rescode}; then
     logInfo "Error updating the sha256 of in ${_projectFolder}"
-    _output="$(<"${_updateSha256NixFlakeOutput}")"
-    if ! isEmpty "${_output}"; then
-      logDebug "${_output}"
-    fi
   fi
 
   if isTrue ${_rescode}; then
@@ -64,10 +60,6 @@ function main() {
     local _updateLatestInputsNixFlakeOutput="${RESULT}"
     "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1 | tee "${_updateLatestInputsNixFlakeOutput}"
     _rescode=$?
-    _output="$(<"${_updateLatestInputsNixFlakeOutput}")"
-    if ! isEmpty "${_output}"; then
-      logDebug "${_output}"
-    fi
   fi
 
   if isTrue ${_rescode}; then
@@ -76,10 +68,6 @@ function main() {
     local _releaseTagOutput="${RESULT}"
     "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${_projectFolder}" 2>&1 | tee "${_releaseTagOutput}"
     _rescode=$?
-    _output="$(<"${_releaseTagOutput}")"
-    if ! isEmpty "${_output}"; then
-      logDebug "${_output}"
-    fi
     if arrayContains ${_rescode} "${_noChangesExitCodes[@]}"; then
       exitWithErrorCode SKIPPED "${_projectFolder}"
     fi
