@@ -36,21 +36,21 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=release-tag";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.30?dir=release-tag";
     };
     update-latest-inputs-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.30?dir=update-latest-inputs-nix-flake";
     };
     update-sha256-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=update-sha256-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.30?dir=update-sha256-nix-flake";
     };
   };
   outputs = inputs:
@@ -66,7 +66,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda-project";
-        version = "0.0.67";
+        version = "0.0.68";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
