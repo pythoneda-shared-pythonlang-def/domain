@@ -30,7 +30,7 @@
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.58";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.61";
     };
   };
   outputs = inputs:
@@ -46,7 +46,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda";
-        version = "0.0.63";
+        version = "0.0.64";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";

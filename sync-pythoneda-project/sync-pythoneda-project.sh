@@ -72,7 +72,6 @@ function main() {
 
   if isTrue ${_rescode}; then
     # releasing tag
-    logInfo "Releasing a new version of ${_projectFolder}"
     createTempFile
     local _releaseTagOutput="${RESULT}"
     "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${_projectFolder}" 2>&1 | tee "${_releaseTagOutput}"
