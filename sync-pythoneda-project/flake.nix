@@ -18,7 +18,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
   description =
-    "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
+    "Nix flake for pythoneda-shared-pythonlang/domain/sync-pythoneda-project";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixos.url = "github:NixOS/nixpkgs/24.05";
@@ -36,21 +36,21 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.27?dir=release-tag";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=release-tag";
     };
     update-latest-inputs-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.27?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=update-latest-inputs-nix-flake";
     };
     update-sha256-nix-flake = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.dry-wit.follows = "dry-wit";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.27?dir=update-sha256-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.29?dir=update-sha256-nix-flake";
     };
   };
   outputs = inputs:
@@ -66,7 +66,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda-project";
-        version = "0.0.66";
+        version = "0.0.67";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update a PythonEDA project' dependencies to their latest versions";
