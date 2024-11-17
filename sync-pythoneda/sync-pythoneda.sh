@@ -333,7 +333,8 @@ RYDNR_PROJECTS=(
 )
 
 ACMSL_PROJECTS=(
-  "licdata/iac"
+  "licdata/licdata"
+  "licdata/licdata-iac"
 )
 
 ## deps
