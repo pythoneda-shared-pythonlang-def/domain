@@ -25,7 +25,7 @@
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:rydnr/dry-wit/3.0.23?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.24?dir=nix";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
@@ -46,7 +46,7 @@
         org = "pythoneda-shared-pythonlang-def";
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda";
-        version = "0.0.73";
+        version = "0.0.74";
         pkgs = import nixos { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
