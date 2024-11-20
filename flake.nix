@@ -24,7 +24,7 @@
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.62";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.63";
     };
   };
   outputs = inputs:
@@ -119,9 +119,7 @@
       in rec {
         defaultPackage = packages.default;
         devShells = rec {
-          default = pythoneda-shared-pythonlang-domain-default;
-          pythoneda-shared-pythonlang-domain-default =
-            pythoneda-shared-pythonlang-domain-python312;
+          default = pythoneda-shared-pythonlang-domain-python312;
           pythoneda-shared-pythonlang-domain-python38 = shared.devShell-for {
             banner = "${
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38
@@ -194,9 +192,7 @@
           };
         };
         packages = rec {
-          default = pythoneda-shared-pythonlang-domain-default;
-          pythoneda-shared-pythonlang-domain-default =
-            pythoneda-shared-pythonlang-domain-python312;
+          default = pythoneda-shared-pythonlang-domain-python312;
           pythoneda-shared-pythonlang-domain-python38 =
             pythoneda-shared-pythonlang-domain-for { python = pkgs.python38; };
           pythoneda-shared-pythonlang-domain-python39 =
