@@ -102,6 +102,7 @@ class ProcessPythonpath:
         :return: The path.
         :rtype: str
         """
+        max_matches = 0
         module_set = set(modules)
         exclude_dirs = {".git", "__pycache__"}
         _, orgs, _ = next(os.walk(rootFolder))
@@ -111,11 +112,19 @@ class ProcessPythonpath:
             repos[:] = [d for d in repos if d not in exclude_dirs]
             for repo in repos:
                 current_modules = self.find_modules_under(Path(org_folder) / repo)
+                n_matches = len(set(current_modules) & module_set)
                 if self.modules_match(set(current_modules), module_set):
                     return Path(org_folder) / repo
+                elif n_matches > max_matches:
+                    # Update best match
+                    max_matches = n_matches
+                    best_match = Path(org_folder) / repo
 
-        # If no directory contains all modules, return None
-        return None
+        # If no directory contains all modules, return the best match
+        print(
+            f"Warning: No perfect match found under {rootFolder} for {module_set}. Returning {best_match}"
+        )
+        return best_match
 
     def modules_match(self, firstSet: Set, secondSet: Set) -> bool:
         """
