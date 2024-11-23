@@ -24,7 +24,7 @@
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.67";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.68";
     };
   };
   outputs = inputs:
