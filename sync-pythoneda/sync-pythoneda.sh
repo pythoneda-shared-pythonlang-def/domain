@@ -52,6 +52,23 @@ function main() {
   createTempFile
   local _syncPythonedaProjectOutput="${RESULT}"
 
+  if isNotEmpty "${START_FROM}"; then
+    local -i _startFromIndex
+    local -i _found=${FALSE}
+    for _project in "${_projects[@]}"; do
+      if areEqual "${_project}" "${START_FROM}"; then
+        _found=${TRUE}
+        break
+      fi
+      _startFromIndex=$((_startFromIndex + 1))
+    done
+    if isFalse ${_found}; then
+      exitWithErrorCode UNKNOWN_PROJECT "${START_FROM}"
+    fi
+    _projects=("${_projects[@]:${_startFromIndex}}")
+    _totalProjects=${#_projects[@]}
+  fi
+
   local _origIFS="${IFS}"
   IFS="${DWIFS}"
   for _project in "${_projects[@]}"; do
@@ -241,6 +258,7 @@ addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARG
 addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}"
 addCommandLineFlag "force" "f" "Force the release" OPTIONAL NO_ARGUMENT "${FALSE}"
 addCommandLineFlag "continueOnError" "e" "Continue on error" OPTIONAL NO_ARGUMENT "${FALSE}"
+addCommandLineFlag "startFrom" "s" "Start from given project" OPTIONAL EXPECTS_ARGUMENT
 
 checkReq jq
 checkReq sed
@@ -255,6 +273,7 @@ addError CANNOT_EXTRACT_THE_OWNER_OF_PROJECT "Cannot extract the owner of projec
 addError CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "Cannot extract the repository name of project:"
 addError CANNOT_UPDATE_LATEST_INPUTS "Cannot update inputs to its latest versions in"
 addError CANNOT_RELEASE_TAG "Cannot create a new release tag in"
+addError UNKNOWN_PROJECT "Unknown project:"
 
 PYTHONEDA_PROJECTS=(
   "pythoneda-shared-pythonlang/banner"

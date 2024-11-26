@@ -111,20 +111,24 @@ class ProcessPythonpath:
             org_folder, repos, _ = next(os.walk(Path(rootFolder) / org))
             repos[:] = [d for d in repos if d not in exclude_dirs]
             for repo in repos:
-                current_modules = self.find_modules_under(Path(org_folder) / repo)
-                n_matches = len(set(current_modules) & module_set)
-                if self.modules_match(set(current_modules), module_set):
+                current_modules = set(self.find_modules_under(Path(org_folder) / repo))
+                n_matches = len(current_modules & module_set)
+                if self.modules_match(current_modules, module_set):
                     return Path(org_folder) / repo
                 elif n_matches > max_matches:
                     # Update best match
                     max_matches = n_matches
                     best_match = Path(org_folder) / repo
+                    best_modules_match = current_modules
 
         # If no directory contains all modules, return the best match
         print(
-            f"Warning: No perfect match found under {rootFolder} for {module_set}. Returning {best_match}",
+            f"Warning: No perfect match found under {rootFolder}.",
             file=sys.stderr,
         )
+        print(f" - Expected: {module_set}", file=sys.stderr)
+        print(f" - Got:      {best_modules_match}", file=sys.stderr)
+        print(f" - Returning {best_match}", file=sys.stderr)
         return best_match
 
     def modules_match(self, firstSet: Set, secondSet: Set) -> bool:
@@ -195,15 +199,17 @@ class ProcessPythonpath:
                         result.append(str(package_path))
                     else:
                         result.append(path)
-                        sys.stderr.write(
-                            f"Warning: Could not find alternate path for {path} under {namespace_root_folder} containing modules {modules_under_path}\n"
+                        print(
+                            f"Warning: Could not find alternate path for {path} under {namespace_root_folder} containing modules {modules_under_path}",
+                            file=sys.stderr,
                         )
                 else:
-                    sys.stderr.write(f"Warning: submodules mismatch for {path}:\n")
+                    print(f"Warning: submodules mismatch for {path}:", file=sys.stderr)
                     for item in modules_under_path:
                         if item not in custom_modules:
-                            sys.stderr.write(
-                                f"- {item} not present in {custom_modules}\n"
+                            print(
+                                f"- {item} not present in {custom_modules}",
+                                file=sys.stderr,
                             )
             else:
                 result.append(path)
@@ -334,7 +340,6 @@ class ProcessPythonpath:
 
         original_syspath = sys.path.copy()
         new_syspath = instance.sort_syspath(sys.path.copy())
-
         if args.command == "development" and root_folder is not None:
             new_syspath = instance.syspath_for_nix_develop(new_syspath, root_folder)
             new_syspath = instance.sort_syspath(new_syspath)
