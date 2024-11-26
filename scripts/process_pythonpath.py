@@ -122,7 +122,8 @@ class ProcessPythonpath:
 
         # If no directory contains all modules, return the best match
         print(
-            f"Warning: No perfect match found under {rootFolder} for {module_set}. Returning {best_match}"
+            f"Warning: No perfect match found under {rootFolder} for {module_set}. Returning {best_match}",
+            file=sys.stderr,
         )
         return best_match
 

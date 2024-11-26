@@ -316,6 +316,9 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-runtime/boot"
   "pythoneda-runtime/boot-infrastructure"
   "pythoneda-runtime/boot-application"
+  "pythoneda-iac/events"
+  "pythoneda-iac/shared"
+  "pythoneda-iac/pulumi-azure"
   "pythoneda-tools-artifact/git-hook"
   "pythoneda-tools-artifact/new-domain"
   "pythoneda-sandbox/flow-sample"
@@ -333,8 +336,14 @@ RYDNR_PROJECTS=(
 )
 
 ACMSL_PROJECTS=(
-  "licdata/licdata"
-  "licdata/licdata-iac"
+  "acmsl/licdata-events"
+  "acmsl/licdata-domain"
+  "acmsl/licdata-infrastructure"
+  "acmsl/licdata-application"
+  "acmsl/licdata-artifact-events"
+  "acmsl/licdata-artifact-events-infrastructure"
+  "acmsl/licdata-artifact"
+  "acmsl/licdata-iac"
 )
 
 ## deps
