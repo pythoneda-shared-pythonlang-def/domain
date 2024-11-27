@@ -6,3 +6,5 @@ lib64
 pyvenv.cfg
 result
 **/result
+sync-pythoneda/*.sh
+sync-pythoneda-project/*.sh

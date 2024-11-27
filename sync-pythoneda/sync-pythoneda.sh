@@ -53,7 +53,7 @@ function main() {
   local _syncPythonedaProjectOutput="${RESULT}"
 
   if isNotEmpty "${START_FROM}"; then
-    local -i _startFromIndex
+    local -i _startFromIndex=0
     local -i _found=${FALSE}
     for _project in "${_projects[@]}"; do
       if areEqual "${_project}" "${START_FROM}"; then
