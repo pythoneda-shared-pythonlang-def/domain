@@ -335,9 +335,9 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-runtime/boot"
   "pythoneda-runtime/boot-infrastructure"
   "pythoneda-runtime/boot-application"
-  "pythoneda-iac/events"
-  "pythoneda-iac/shared"
-  "pythoneda-iac/pulumi-azure"
+  "pythoneda-shared-iac/events"
+  "pythoneda-shared-iac/shared"
+  "pythoneda-shared-iac/pulumi-azure"
   "pythoneda-tools-artifact/git-hook"
   "pythoneda-tools-artifact/new-domain"
   "pythoneda-sandbox/flow-sample"
@@ -362,12 +362,14 @@ ACMSL_PROJECTS=(
   "acmsl/licdata-artifact-events"
   "acmsl/licdata-artifact-events-infrastructure"
   "acmsl/licdata-artifact"
-  "acmsl/licdata-iac"
+  "acmsl/licdata-iac-domain"
+  "acmsl/licdata-iac-infrastructure"
+  "acmsl/licdata-iac-application"
 )
 
 ## deps
 export SYNC_PYTHONEDA_PROJECT="__SYNC_PYTHONEDA_PROJECT__"
-if areEqual "${SYNC_PYTHONEDA_PROJECT}" "$(echo -n '__SYNC_PYTHONEDA' && echo '_PROJECT__')"; then
+if areEqual "${SYNC_PYTHONEDA_PROJECT}" "$(command echo -n '__SYNC_PYTHONEDA' && command echo '_PROJECT__')"; then
   export SYNC_PYTHONEDA_PROJECT="sync-pythoneda-project.sh"
 fi
 
