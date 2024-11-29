@@ -8,3 +8,7 @@ result
 **/result
 sync-pythoneda/*.sh
 sync-pythoneda-project/*.sh
+deps.txt
+deps.dot
+deps.png
+src
