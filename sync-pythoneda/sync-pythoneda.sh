@@ -298,6 +298,8 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-shared-code-requests/jupyterlab"
   "pythoneda-shared-artifact/code-events"
   "pythoneda-shared-artifact/code-events-infrastructure"
+  "pythoneda-external-artf/flakeutils"
+  "pythoneda-external-artf/nixpkgs"
   "pythoneda-realm-rydnr/events"
   "pythoneda-realm-rydnr/events-infrastructure"
   "pythoneda-realm-rydnr/realm"
@@ -341,8 +343,6 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-tools-artifact/git-hook"
   "pythoneda-tools-artifact/new-domain"
   "pythoneda-sandbox/flow-sample"
-  "pythoneda-external-artf/flakeutils"
-  "pythoneda-external-artf/nixpkgs"
 )
 
 TESTS=(
