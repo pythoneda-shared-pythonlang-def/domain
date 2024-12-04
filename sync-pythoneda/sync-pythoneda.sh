@@ -341,6 +341,8 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-tools-artifact/git-hook"
   "pythoneda-tools-artifact/new-domain"
   "pythoneda-sandbox/flow-sample"
+  "pythoneda-external-artf/flakeutils"
+  "pythoneda-external-artf/nixpkgs"
 )
 
 TESTS=(
