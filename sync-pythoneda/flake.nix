@@ -21,15 +21,15 @@
     "Nix flake for pythoneda-shared-pythonlang/domain/sync-pythoneda";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:rydnr/dry-wit/3.0.24?dir=nix";
     };
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:pythoneda-shared-pythonlang-def/banner/0.0.61";
     };
   };
@@ -47,7 +47,7 @@
         repo = "domain";
         pname = "${org}-${repo}-sync-pythoneda";
         version = "0.0.76";
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description =
           "dry-wit script to update PythonEDA projects' dependencies to their latest dependencies";
         license = pkgs.lib.licenses.gpl3;

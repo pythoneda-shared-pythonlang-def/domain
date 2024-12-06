@@ -42,6 +42,8 @@
         version = "0.0.34";
         sha256 = "0r8i2481im78azhlhr99xz7aw3mbzfds101fh1w3bkcrd3mlgsq9";
         pname = "${org}-${repo}";
+        pythonpackage = "pythoneda.shared";
+        package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
         pkgs = import nixpkgs { inherit system; };
         description = "Support for event-driven architectures in Python";
         license = pkgs.lib.licenses.gpl3;
@@ -58,7 +60,6 @@
           let
             pnameWithUnderscores =
               builtins.replaceStrings [ "-" ] [ "_" ] pname;
-            pythonpackage = "pythoneda.shared";
             pythonVersionParts = builtins.splitVersion python.version;
             pythonMajorVersion = builtins.head pythonVersionParts;
             pythonMajorMinorVersion =
@@ -76,7 +77,6 @@
               desc = description;
               inherit homepage pname pythonMajorMinorVersion pythonpackage
                 version;
-              package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
               src = pyprojectTomlTemplate;
             };
             src = pkgs.fetchFromGitHub {
