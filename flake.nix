@@ -20,11 +20,11 @@
   description = "Nix flake for pythoneda-shared-pythonlang/domain";
   inputs = rec {
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixos.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixos.follows = "nixos";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.71";
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.72";
     };
   };
   outputs = inputs:
@@ -42,7 +42,7 @@
         version = "0.0.34";
         sha256 = "0r8i2481im78azhlhr99xz7aw3mbzfds101fh1w3bkcrd3mlgsq9";
         pname = "${org}-${repo}";
-        pkgs = import nixos { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         description = "Support for event-driven architectures in Python";
         license = pkgs.lib.licenses.gpl3;
         homepage = "https://github.com/pythoneda-shared-pythonlang/domain";
@@ -50,9 +50,9 @@
         archRole = "S";
         space = "D";
         layer = "D";
-        nixosVersion = builtins.readFile "${nixos}/.version";
+        nixpkgsVersion = builtins.readFile "${nixpkgs}/.version";
         nixpkgsRelease =
-          builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
+          builtins.replaceStrings [ "\n" ] [ "" ] "nixpkgs-${nixpkgsVersion}";
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
         pythoneda-shared-pythonlang-domain-for = { python }:
           let
