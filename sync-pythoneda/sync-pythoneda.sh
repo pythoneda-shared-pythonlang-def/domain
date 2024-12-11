@@ -98,7 +98,7 @@ function main() {
     elif areEqual ${_rescode} ${_skippedProject}; then
       _upToDateProjects+=("${_defOwner}/${_repo}")
     else
-      logInfo "Error processing ${_defOwner}/${_repo}"
+      logInfo "Error processing ${_defOwner}/${_repo} (${_rescode})"
       _failedProjects+=("${_defOwner}/${_repo}")
       if isTrue "${STOP_ON_ERROR}"; then
         break
@@ -141,7 +141,7 @@ function main() {
       logInfo "${_project}"
     done
     IFS=','
-    echo "[ ${_updatedProjects[*]} ]"
+    command echo "[ ${_updatedProjects[*]} ]"
     IFS="${_origIFS}"
   fi
 }
@@ -197,7 +197,7 @@ function extract_owner() {
   local -i _rescode=${FALSE}
   local _result
 
-  _result="$(echo "${_project}" | cut -d '/' -f 1 2>/dev/null)"
+  _result="$(command echo "${_project}" | command cut -d '/' -f 1 2>/dev/null)"
   _rescode=$?
 
   if isEmpty "${_result}"; then

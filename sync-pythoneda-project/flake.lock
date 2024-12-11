@@ -5,23 +5,23 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ]
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1731909390,
-        "narHash": "sha256-F0gNqBbWf6Ua11XHlvthzZk1yhKOJb5mwNdaItA5yKU=",
+        "lastModified": 1733944054,
+        "narHash": "sha256-9A/ZVjGVhNVqMeNRrB0gtz9v6/kQXYkWnAMuslFHO1g=",
         "owner": "rydnr",
         "repo": "dry-wit",
-        "rev": "e4ea87c92a5cb3d53558278611350ddb760e6b90",
+        "rev": "b8e07c7a8fa4f93c7415b139f42c1c82f2d81609",
         "type": "github"
       },
       "original": {
         "dir": "nix",
         "owner": "rydnr",
-        "ref": "3.0.24",
+        "ref": "3.0.25",
         "repo": "dry-wit",
         "type": "github"
       }
@@ -42,7 +42,7 @@
         "type": "github"
       }
     },
-    "nixos": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1717179513,
         "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
@@ -63,21 +63,21 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731668408,
-        "narHash": "sha256-oCzYR2e8hCD9nvjbg1rKHyfZf6t/n75fPYwSiZPZG94=",
+        "lastModified": 1733921954,
+        "narHash": "sha256-8bXCVSjpGD+1Zpfqjmie6JKnz7eH5vALIXKoa9n0OyI=",
         "owner": "pythoneda-shared-pythonlang-def",
         "repo": "banner",
-        "rev": "a68e4aebbe346d7514ae23d9bd743626854a46ac",
+        "rev": "d6f65312ef3f7a8a3315aca7c0f3cc99783a5b20",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.61",
+        "ref": "0.0.74",
         "repo": "banner",
         "type": "github"
       }
@@ -88,22 +88,22 @@
           "release-tag",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "release-tag",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731668408,
-        "narHash": "sha256-oCzYR2e8hCD9nvjbg1rKHyfZf6t/n75fPYwSiZPZG94=",
+        "lastModified": 1733921954,
+        "narHash": "sha256-8bXCVSjpGD+1Zpfqjmie6JKnz7eH5vALIXKoa9n0OyI=",
         "owner": "pythoneda-shared-pythonlang-def",
         "repo": "banner",
-        "rev": "a68e4aebbe346d7514ae23d9bd743626854a46ac",
+        "rev": "d6f65312ef3f7a8a3315aca7c0f3cc99783a5b20",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.61",
+        "ref": "0.0.74",
         "repo": "banner",
         "type": "github"
       }
@@ -114,22 +114,22 @@
           "update-latest-inputs-nix-flake",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "update-latest-inputs-nix-flake",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731668408,
-        "narHash": "sha256-oCzYR2e8hCD9nvjbg1rKHyfZf6t/n75fPYwSiZPZG94=",
+        "lastModified": 1733921954,
+        "narHash": "sha256-8bXCVSjpGD+1Zpfqjmie6JKnz7eH5vALIXKoa9n0OyI=",
         "owner": "pythoneda-shared-pythonlang-def",
         "repo": "banner",
-        "rev": "a68e4aebbe346d7514ae23d9bd743626854a46ac",
+        "rev": "d6f65312ef3f7a8a3315aca7c0f3cc99783a5b20",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.61",
+        "ref": "0.0.74",
         "repo": "banner",
         "type": "github"
       }
@@ -140,22 +140,22 @@
           "update-sha256-nix-flake",
           "flake-utils"
         ],
-        "nixos": [
+        "nixpkgs": [
           "update-sha256-nix-flake",
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731668408,
-        "narHash": "sha256-oCzYR2e8hCD9nvjbg1rKHyfZf6t/n75fPYwSiZPZG94=",
+        "lastModified": 1733921954,
+        "narHash": "sha256-8bXCVSjpGD+1Zpfqjmie6JKnz7eH5vALIXKoa9n0OyI=",
         "owner": "pythoneda-shared-pythonlang-def",
         "repo": "banner",
-        "rev": "a68e4aebbe346d7514ae23d9bd743626854a46ac",
+        "rev": "d6f65312ef3f7a8a3315aca7c0f3cc99783a5b20",
         "type": "github"
       },
       "original": {
         "owner": "pythoneda-shared-pythonlang-def",
-        "ref": "0.0.61",
+        "ref": "0.0.74",
         "repo": "banner",
         "type": "github"
       }
@@ -168,24 +168,24 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "pythoneda-shared-pythonlang-banner": "pythoneda-shared-pythonlang-banner_2"
       },
       "locked": {
         "dir": "release-tag",
-        "lastModified": 1731954396,
-        "narHash": "sha256-Z+t0XriMSAPg1cTJ3uYzaVY4T6JgV+vR5gauFTuWIpg=",
+        "lastModified": 1733944375,
+        "narHash": "sha256-7O5ZJFB4SHMyURdmzOsrkhARp5NCH8mXzzivHkIfGTM=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "90603eedfcecbc1deec82505cdbcfe00f94984b6",
+        "rev": "b73cbd69bc5f7c9ff0f3bf66fc3c9d488d2aa596",
         "type": "github"
       },
       "original": {
         "dir": "release-tag",
         "owner": "rydnr",
-        "ref": "0.0.37",
+        "ref": "0.0.41",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -194,7 +194,7 @@
       "inputs": {
         "dry-wit": "dry-wit",
         "flake-utils": "flake-utils",
-        "nixos": "nixos",
+        "nixpkgs": "nixpkgs",
         "pythoneda-shared-pythonlang-banner": "pythoneda-shared-pythonlang-banner",
         "release-tag": "release-tag",
         "update-latest-inputs-nix-flake": "update-latest-inputs-nix-flake",
@@ -209,24 +209,24 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "pythoneda-shared-pythonlang-banner": "pythoneda-shared-pythonlang-banner_3"
       },
       "locked": {
         "dir": "update-latest-inputs-nix-flake",
-        "lastModified": 1731954396,
-        "narHash": "sha256-Z+t0XriMSAPg1cTJ3uYzaVY4T6JgV+vR5gauFTuWIpg=",
+        "lastModified": 1733944375,
+        "narHash": "sha256-7O5ZJFB4SHMyURdmzOsrkhARp5NCH8mXzzivHkIfGTM=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "90603eedfcecbc1deec82505cdbcfe00f94984b6",
+        "rev": "b73cbd69bc5f7c9ff0f3bf66fc3c9d488d2aa596",
         "type": "github"
       },
       "original": {
         "dir": "update-latest-inputs-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.37",
+        "ref": "0.0.41",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }
@@ -239,24 +239,24 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixos": [
-          "nixos"
+        "nixpkgs": [
+          "nixpkgs"
         ],
         "pythoneda-shared-pythonlang-banner": "pythoneda-shared-pythonlang-banner_4"
       },
       "locked": {
         "dir": "update-sha256-nix-flake",
-        "lastModified": 1731954396,
-        "narHash": "sha256-Z+t0XriMSAPg1cTJ3uYzaVY4T6JgV+vR5gauFTuWIpg=",
+        "lastModified": 1733944375,
+        "narHash": "sha256-7O5ZJFB4SHMyURdmzOsrkhARp5NCH8mXzzivHkIfGTM=",
         "owner": "rydnr",
         "repo": "nix-dry-wit-scripts",
-        "rev": "90603eedfcecbc1deec82505cdbcfe00f94984b6",
+        "rev": "b73cbd69bc5f7c9ff0f3bf66fc3c9d488d2aa596",
         "type": "github"
       },
       "original": {
         "dir": "update-sha256-nix-flake",
         "owner": "rydnr",
-        "ref": "0.0.37",
+        "ref": "0.0.41",
         "repo": "nix-dry-wit-scripts",
         "type": "github"
       }

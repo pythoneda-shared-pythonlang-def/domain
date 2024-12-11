@@ -20,17 +20,17 @@
   description =
     "Nix flake for pythoneda-shared-pythonlang/domain/sync-pythoneda";
   inputs = rec {
-    flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/dry-wit/3.0.24?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.25?dir=nix";
     };
+    flake-utils.url = "github:numtide/flake-utils/v1.0.0";
+    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.61";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.74";
     };
   };
   outputs = inputs:

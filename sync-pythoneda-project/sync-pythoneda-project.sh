@@ -97,15 +97,15 @@ checkReq grep
 
 ## deps
 export UPDATE_LATEST_INPUTS_NIX_FLAKE="__UPDATE_LATEST_INPUTS_NIX_FLAKE__"
-if areEqual "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "$(echo -n '__UPDATE_LATEST' && echo '_INPUTS_NIX_FLAKE__')"; then
+if areEqual "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "$(command echo -n '__UPDATE_LATEST' && command echo '_INPUTS_NIX_FLAKE__')"; then
   export UPDATE_LATEST_INPUTS_NIX_FLAKE="update-latest-inputs-nix-flake.sh"
 fi
 export RELEASE_TAG="__RELEASE_TAG__"
-if areEqual "${RELEASE_TAG}" "$(echo -n '__RELEASE' && echo '_TAG__')"; then
+if areEqual "${RELEASE_TAG}" "$(command echo -n '__RELEASE' && command echo '_TAG__')"; then
   export RELEASE_TAG="release-tag.sh"
 fi
 export UPDATE_SHA256_NIX_FLAKE="__UPDATE_SHA256_NIX_FLAKE__"
-if areEqual "${UPDATE_SHA256_NIX_FLAKE}" "$(echo -n '__UPDATE' && echo '_SHA256_NIX_FLAKE__')"; then
+if areEqual "${UPDATE_SHA256_NIX_FLAKE}" "$(command echo -n '__UPDATE' && command echo '_SHA256_NIX_FLAKE__')"; then
   export UPDATE_SHA256_NIX_FLAKE="update-sha256-nix-flake.sh"
 fi
 
