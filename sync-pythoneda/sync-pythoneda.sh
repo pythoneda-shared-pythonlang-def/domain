@@ -349,15 +349,16 @@ TESTS=(
   "pythoneda-sandbox/flow-sample-tests"
 )
 
-RYDNR_PROJECTS=(
-  "tools/nix-flake-to-graphviz"
-  "learn/basics-pytorch"
-  "learn/leetcode-python"
-  "grammars/nix-flake-python-antlr4-parser"
-)
+RYDNR_PROJECTS=()
+#  "tools/nix-flake-to-graphviz"
+#  "learn/basics-pytorch"
+#  "learn/leetcode-python"
+#  "grammars/nix-flake-python-antlr4-parser"
+#)
 
 ACMSL_PROJECTS=(
   "acmsl/licdata-events"
+  "acmsl/licdata-events-infrastructure"
   "acmsl/licdata-domain"
   "acmsl/licdata-infrastructure"
   "acmsl/licdata-application"
