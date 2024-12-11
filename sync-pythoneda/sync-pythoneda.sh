@@ -92,22 +92,18 @@ function main() {
     fi
     logInfo "[${_index}/${_totalProjects}] Processing ${_defOwner}/${_repo}"
     "${SYNC_PYTHONEDA_PROJECT}" "${_commonArgs[@]}" -p "${_root_folder}/${_defOwner}/${_repo}" | tee "${_syncPythonedaProjectOutput}"
-    _rescode=$?
+    _rescode=${PIPESTATUS[0]}
     if isTrue ${_rescode}; then
       _updatedProjects+=("${_defOwner}/${_repo}")
     elif areEqual ${_rescode} ${_skippedProject}; then
       _upToDateProjects+=("${_defOwner}/${_repo}")
     else
       logInfo "Error processing ${_defOwner}/${_repo}"
-      _output="$(<"${_syncPythonedaProjectOutput}")"
-      if ! isEmpty "${_output}"; then
-        logDebug "${_output}"
-      fi
       _failedProjects+=("${_defOwner}/${_repo}")
-      if isTrue "${CONTINUE_ON_ERROR}"; then
-        continue
-      else
+      if isTrue "${STOP_ON_ERROR}"; then
         break
+      else
+        continue
       fi
     fi
     IFS="${_origIFS}"
@@ -257,7 +253,7 @@ addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUM
 addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARGUMENT "Commit created with ${SCRIPT_NAME}"
 addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}"
 addCommandLineFlag "force" "f" "Force the release" OPTIONAL NO_ARGUMENT "${FALSE}"
-addCommandLineFlag "continueOnError" "e" "Continue on error" OPTIONAL NO_ARGUMENT "${FALSE}"
+addCommandLineFlag "stopOnError" "se" "Stop on error" OPTIONAL NO_ARGUMENT "${FALSE}"
 addCommandLineFlag "startFrom" "s" "Start from given project" OPTIONAL EXPECTS_ARGUMENT
 
 checkReq jq
@@ -271,7 +267,6 @@ addError ACMSL_ROOT_FOLDER_DOES_NOT_EXIST "Given acmsl root folder for definitio
 addError PROJECT_FOLDER_DOES_NOT_EXIST "Project folder does not exist:"
 addError CANNOT_EXTRACT_THE_OWNER_OF_PROJECT "Cannot extract the owner of project:"
 addError CANNOT_EXTRACT_THE_REPOSITORY_NAME_OF_PROJECT "Cannot extract the repository name of project:"
-addError CANNOT_UPDATE_LATEST_INPUTS "Cannot update inputs to its latest versions in"
 addError CANNOT_RELEASE_TAG "Cannot create a new release tag in"
 addError UNKNOWN_PROJECT "Unknown project:"
 
@@ -417,4 +412,5 @@ function dw_check_acmslRootFfolder_cli_flag() {
 function dw_parse_acmslRootFolder_cli_flag() {
   export ACMSL_ROOT_FOLDER="${1}"
 }
+
 # vim: syntax=sh ts=2 sw=2 sts=4 sr noet

@@ -41,15 +41,15 @@ function main() {
   fi
 
   local _projectFolder="${PROJECT_FOLDER}"
-  local _project="$(dirname ${_projectFolder}/$(basename ${_projectFolder}))"
+  local _project="$(command dirname ${_projectFolder}/$(basename ${_projectFolder}))"
   local _output
 
-  pushd "${_projectFolder}" >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${_projectFolder}"
+  command pushd "${_projectFolder}" >/dev/null 2>&1 || exitWithErrorCode PROJECT_FOLDER_DOES_NOT_EXIST "${_projectFolder}"
   # Updating the reference to the wrapped repository if needed
   createTempFile
   local _updateSha256NixFlakeOutput="${RESULT}"
   "${UPDATE_SHA256_NIX_FLAKE}" "${_commonArgs[@]}" | tee "${_updateSha256NixFlakeOutput}"
-  _rescode=$?
+  _rescode=${PIPESTATUS[0]}
   if isFalse ${_rescode}; then
     logInfo "Error updating the sha256 of in ${_projectFolder}"
   fi
@@ -59,7 +59,7 @@ function main() {
     createTempFile
     local _updateLatestInputsNixFlakeOutput="${RESULT}"
     "${UPDATE_LATEST_INPUTS_NIX_FLAKE}" "${_commonArgs[@]}" -f flake.nix -l flake.lock 2>&1 | tee "${_updateLatestInputsNixFlakeOutput}"
-    _rescode=$?
+    _rescode=${PIPESTATUS[0]}
   fi
 
   if isTrue ${_rescode}; then
@@ -67,7 +67,7 @@ function main() {
     createTempFile
     local _releaseTagOutput="${RESULT}"
     "${RELEASE_TAG}" "${_releaseTagArgs[@]}" -r "${_projectFolder}" 2>&1 | tee "${_releaseTagOutput}"
-    _rescode=$?
+    _rescode=${PIPESTATUS[0]}
     if arrayContains ${_rescode} "${_noChangesExitCodes[@]}"; then
       exitWithErrorCode SKIPPED "${_projectFolder}"
     fi
