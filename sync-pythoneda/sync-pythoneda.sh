@@ -318,12 +318,15 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-artifact/nix-flake-application"
   "pythoneda-artifact/code-request-infrastructure"
   "pythoneda-artifact/code-request-application"
+  "pythoneda-shared-git/github"
+  "pythoneda-shared-pythonlang-artf/banner"
   "pythoneda-shared-pythonlang-artf/domain"
   "pythoneda-shared-pythonlang-artf/infrastructure"
   "pythoneda-shared-pythonlang-artf/application"
-  "pythoneda-shared-git/github"
   "pythoneda-shared-runtime/lifecycle-events"
   "pythoneda-shared-runtime/lifecycle-events-infrastructure"
+  "pythoneda-shared-runtime/secrets-events"
+  "pythoneda-shared-runtime/secrets-events-infrastructure"
   "pythoneda-shared-runtime-infra/eventstoredb-events"
   "pythoneda-shared-runtime-infra/eventstoredb-events-infrastructure"
   "pythoneda-runtime-infrastructure/eventstoredb"
@@ -332,16 +335,23 @@ PYTHONEDA_PROJECTS=(
   "pythoneda-runtime/boot"
   "pythoneda-runtime/boot-infrastructure"
   "pythoneda-runtime/boot-application"
+  "pythoneda-runtime/secrets"
+  "pythoneda-runtime/secrets-infrastructure"
+  "pythoneda-runtime/secrets-application"
   "pythoneda-shared-iac/events"
+  "pythoneda-shared-iac/events-infrastructure"
   "pythoneda-shared-iac/shared"
   "pythoneda-shared-iac/pulumi-azure"
   "pythoneda-tools-artifact/git-hook"
   "pythoneda-tools-artifact/new-domain"
+  "pythoneda-tools-runtime/flow-inspector"
+  "pythoneda-tools-runtime/flow-inspector-infrastructure"
+  "pythoneda-tools-runtime/flow-inspector-application"
   "pythoneda-sandbox/flow-sample"
 )
 
 TESTS=(
-  "pythoneda-sandbox/flow-sample-tests"
+  #  "pythoneda-sandbox/flow-sample-tests"
 )
 
 RYDNR_PROJECTS=()
