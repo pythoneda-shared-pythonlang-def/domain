@@ -74,7 +74,7 @@ function main() {
   for _project in "${_projects[@]}"; do
     IFS="${_origIFS}"
     if extract_owner "${_project}"; then
-      _defOwner="${RESULT}-def"
+      _defOwner="${RESULT}"
     else
       exitWithErrorCode CANNOT_EXTRACT_THE_OWNER_OF_PROJECT "${_project}"
     fi
