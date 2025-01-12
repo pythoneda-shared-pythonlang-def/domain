@@ -70,6 +70,8 @@ function main() {
     _rescode=${PIPESTATUS[0]}
     if arrayContains ${_rescode} "${_noChangesExitCodes[@]}"; then
       exitWithErrorCode SKIPPED "${_projectFolder}"
+    elif isFalse ${_rescode}; then
+      exitWithErrorCode RELEASE_FAILED
     fi
   fi
 
@@ -111,6 +113,7 @@ fi
 
 addError PROJECT_FOLDER_DOES_NOT_EXIST "Project folder does not exist:"
 addError SKIPPED "Skipped project"
+addError RELEASE_FAILED "Release failed"
 
 function dw_check_projectFolder_cli_flag() {
   if ! folderExists "${PROJECT_FOLDER}"; then

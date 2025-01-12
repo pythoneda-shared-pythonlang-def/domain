@@ -99,11 +99,12 @@ function main() {
       _upToDateProjects+=("${_defOwner}/${_repo}")
     else
       logInfo "Error processing ${_defOwner}/${_repo} (${_rescode})"
+      logInfo "Probably the cached GPG key used to sign has expired. Run this script again with '${BASH_SOURCE[0]} -s ${_defOwner}/${_repo}'."
       _failedProjects+=("${_defOwner}/${_repo}")
-      if isTrue "${STOP_ON_ERROR}"; then
-        break
-      else
+      if isTrue "${CONTINUE_ON_ERROR}"; then
         continue
+      else
+        break
       fi
     fi
     IFS="${_origIFS}"
@@ -253,7 +254,7 @@ addCommandLineFlag "gpgKeyId" "g" "The id of the GPG key" OPTIONAL EXPECTS_ARGUM
 addCommandLineFlag "commitMessage" "c" "The commit message" OPTIONAL EXPECTS_ARGUMENT "Commit created with ${SCRIPT_NAME}"
 addCommandLineFlag "tagMessage" "m" "The tag message" OPTIONAL EXPECTS_ARGUMENT "Tag created with ${SCRIPT_NAME}"
 addCommandLineFlag "force" "f" "Force the release" OPTIONAL NO_ARGUMENT "${FALSE}"
-addCommandLineFlag "stopOnError" "se" "Stop on error" OPTIONAL NO_ARGUMENT "${FALSE}"
+addCommandLineFlag "continueOnError" "ce" "Continue on error" OPTIONAL NO_ARGUMENT "${FALSE}"
 addCommandLineFlag "startFrom" "s" "Start from given project" OPTIONAL EXPECTS_ARGUMENT
 
 checkReq jq
