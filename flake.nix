@@ -99,7 +99,7 @@
               command cp ${pyprojectToml} $sourceRoot/pyproject.toml
             '';
 
-            postInstall = ''
+            postInstall = with python.pkgs; ''
               command pushd /build/$sourceRoot
               for f in $(command find . -name '__init__.py'); do
                 if [[ ! -e $out/lib/python${pythonMajorMinorVersion}/site-packages/$f ]]; then
