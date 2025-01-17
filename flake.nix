@@ -93,20 +93,17 @@
             pythonImportsCheck = [ pythonpackage ];
 
             unpackPhase = ''
-              command cp -r ${src} .
-              sourceRoot=$(command ls | command grep -v env-vars)
-              command chmod +w $sourceRoot
-              command cp ${pyprojectToml} $sourceRoot/pyproject.toml
+              command cp -r ${src}/* .
+              command chmod -R +w .
+              command cp ${pyprojectToml} ./pyproject.toml
             '';
 
             postInstall = with python.pkgs; ''
-              command pushd /build/$sourceRoot
               for f in $(command find . -name '__init__.py'); do
                 if [[ ! -e $out/lib/python${pythonMajorMinorVersion}/site-packages/$f ]]; then
                   command cp $f $out/lib/python${pythonMajorMinorVersion}/site-packages/$f;
                 fi
               done
-              command popd
               command mkdir $out/dist
               command cp -r ${scripts} $out/dist/scripts
               command cp dist/${wheelName} $out/dist
