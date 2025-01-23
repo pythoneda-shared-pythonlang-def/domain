@@ -23,10 +23,10 @@
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/dry-wit/3.0.25?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.28?dir=nix";
     };
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
-    nixpkgs.url = "github:NixOS/nixpkgs/24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     pythoneda-shared-pythonlang-banner = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,21 +36,21 @@
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.41?dir=release-tag";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.42?dir=release-tag";
     };
     update-latest-inputs-nix-flake = {
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.41?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.42?dir=update-latest-inputs-nix-flake";
     };
     update-sha256-nix-flake = {
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.41?dir=update-sha256-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.42?dir=update-sha256-nix-flake";
     };
   };
   outputs = inputs:
@@ -106,9 +106,9 @@
       in rec {
         apps = rec {
           default = sync-pythoneda-project-default;
-          sync-pythoneda-project-default = sync-pythoneda-project-bash5;
-          sync-pythoneda-project-bash5 = shared.app-for {
-            package = packages.sync-pythoneda-project-bash5;
+          sync-pythoneda-project-default = sync-pythoneda-project-bash;
+          sync-pythoneda-project-bash = shared.app-for {
+            package = packages.sync-pythoneda-project-bash;
             entrypoint = "sync-pythoneda-project";
           };
           sync-pythoneda-project-zsh = shared.app-for {
@@ -124,16 +124,16 @@
         defaultPackage = packages.default;
         packages = rec {
           default = sync-pythoneda-project-default;
-          sync-pythoneda-project-default = sync-pythoneda-project-bash5;
-          sync-pythoneda-project-bash5 = sync-pythoneda-project-for {
-            dry-wit = dry-wit.packages.${system}.dry-wit-bash5;
-            release-tag = release-tag.packages.${system}.release-tag-bash5;
+          sync-pythoneda-project-default = sync-pythoneda-project-bash;
+          sync-pythoneda-project-bash = sync-pythoneda-project-for {
+            dry-wit = dry-wit.packages.${system}.dry-wit-bash;
+            release-tag = release-tag.packages.${system}.release-tag-bash;
             update-latest-inputs-nix-flake =
-              update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-bash5;
+              update-latest-inputs-nix-flake.packages.${system}.update-latest-inputs-nix-flake-bash;
             update-sha256-nix-flake =
-              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-bash5;
+              update-sha256-nix-flake.packages.${system}.update-sha256-nix-flake-bash;
           };
-          bash5-pythoneda-projects-zsh = sync-pythoneda-project-for {
+          bash-pythoneda-projects-zsh = sync-pythoneda-project-for {
             dry-wit = dry-wit.packages.${system}.dry-wit-zsh;
             release-tag = release-tag.packages.${system}.release-tag-zsh;
             update-latest-inputs-nix-flake =
