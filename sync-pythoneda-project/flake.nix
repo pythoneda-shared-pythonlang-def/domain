@@ -23,7 +23,7 @@
     dry-wit = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/dry-wit/3.0.30?dir=nix";
+      url = "github:rydnr/dry-wit/3.0.31?dir=nix";
     };
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
@@ -36,21 +36,21 @@
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:rydnr/nix-dry-wit-scripts/0.0.46?dir=release-tag";
+      url = "github:rydnr/nix-dry-wit-scripts/0.0.47?dir=release-tag";
     };
     update-latest-inputs-nix-flake = {
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.46?dir=update-latest-inputs-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.47?dir=update-latest-inputs-nix-flake";
     };
     update-sha256-nix-flake = {
       inputs.dry-wit.follows = "dry-wit";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       url =
-        "github:rydnr/nix-dry-wit-scripts/0.0.46?dir=update-sha256-nix-flake";
+        "github:rydnr/nix-dry-wit-scripts/0.0.47?dir=update-sha256-nix-flake";
     };
   };
   outputs = inputs:
