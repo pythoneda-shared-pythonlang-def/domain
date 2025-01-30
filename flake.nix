@@ -39,8 +39,8 @@
       let
         org = "pythoneda-shared-pythonlang";
         repo = "domain";
-        version = "0.0.41";
-        sha256 = "1c2blwkczwa3z4gkili7sfmws9zriiflqxv37h1vxjf22bpdpx90";
+        version = "0.0.43";
+        sha256 = "027v64gcyc95gaf5ls0hd4db64l5ilb142pq2zckymf7gd1q6vx4";
         pname = "${org}-${repo}";
         pythonpackage = "pythoneda.shared";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
